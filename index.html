@@ -407,7 +407,7 @@ html.lock, html.lock body { overflow: hidden; }
   }
   loadBuf("joke", "joke.mp3?v=1");
   var origQueued = false;
-  function queueOrig() { if (origQueued) return; origQueued = true; loadBuf("orig", "orig.mp3?v=1"); }
+  function queueOrig() { if (origQueued) return; origQueued = true; loadBuf("orig", "orig.mp3?v=2"); }
   setTimeout(queueOrig, 3500);
   function typeInto(el, text) {
     var i = 0; el.textContent = ""; el.classList.add("typing");
