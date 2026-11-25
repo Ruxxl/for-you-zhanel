@@ -15,9 +15,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ruxxl.github.io/for-you-zhanel/img/og.jpg">
 <title>Для Жанель</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Manrope:wght@400;500;600&display=swap">
+<link rel="preload" as="image" href="img/hero-red.jpg">
 <script>document.documentElement.classList.add("js");</script>
 <style>
 /* Layout: a scroll-story in four chapters (meeting, her eyes, her stories, the invitation) over a night sky of drifting hearts. */
@@ -32,8 +30,8 @@
   --gold: #6ea8ff; /* accent: concert blue (name kept from earlier palette) */
   --paper: #f3ede6;
   --paper-ink: #2a1d1b;
-  --font-display: "Syne", "Arial Black", system-ui, sans-serif;
-  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
   --mx: 50%;
   --my: 20%;
   color-scheme: dark;
@@ -46,7 +44,8 @@ body {
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 17px;
-  line-height: 1.6;
+  line-height: 1.65;
+  font-weight: 400;
   padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px));
   padding-block: 0 64px;
   overflow-x: clip;
@@ -60,9 +59,9 @@ body::before {
 .wrap { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; overflow-x: clip; }
 
 .eyebrow { font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin: 0 0 16px; }
-h1, h2 { font-family: var(--font-display); text-wrap: balance; text-transform: uppercase; }
-h1 { font-weight: 800; font-size: clamp(42px, 11vw, 88px); line-height: 1; letter-spacing: -0.02em; margin: 0 0 20px; min-height: 1.1em; }
-h2 { font-weight: 800; font-size: clamp(30px, 7vw, 56px); line-height: 1.05; letter-spacing: -0.015em; margin: 0 0 20px; }
+h1, h2 { font-family: var(--font-display); text-wrap: balance; }
+h1 { font-weight: 700; font-size: clamp(44px, 12vw, 88px); line-height: 0.95; letter-spacing: -0.03em; margin: 0 0 20px; min-height: 1.1em; }
+h2 { font-weight: 700; font-size: clamp(26px, 6vw, 42px); line-height: 1.05; letter-spacing: -0.025em; margin: 0 0 20px; }
 em { font-style: normal; background: linear-gradient(100deg, var(--gold), var(--red) 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 p { margin: 0 0 16px; max-width: 60ch; }
 .chapter { padding-block: 90px 40px; text-align: center; display: flex; flex-direction: column; align-items: center; }
@@ -92,7 +91,7 @@ p { margin: 0 0 16px; max-width: 60ch; }
   transform: translateX(-130%); animation: sweep 4.8s ease-in-out infinite;
 }
 .song { position: relative; margin-top: 34px; padding: 34px 28px; min-width: min(100%, 340px); }
-.song .t { position: relative; z-index: 1; font-family: var(--font-display); font-weight: 800; font-size: clamp(28px, 7vw, 46px); line-height: 1.05; margin: 0 0 6px; }
+.song .t { position: relative; z-index: 1; font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; font-size: clamp(28px, 7vw, 46px); line-height: 1.05; margin: 0 0 6px; }
 .song .by { position: relative; z-index: 1; margin: 0; color: var(--gold); font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; }
 .song i { position: absolute; left: 50%; top: 50%; width: 80%; aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--red); opacity: 0; translate: -50% -50%; animation: pulse 3.6s ease-out infinite; }
 .song i:nth-child(2) { animation-delay: 1.2s; }
@@ -110,7 +109,7 @@ p { margin: 0 0 16px; max-width: 60ch; }
 
 .lines { position: relative; width: 100%; padding-block: 56px; display: flex; flex-direction: column; gap: 34px; align-items: center; isolation: isolate; }
 .lines::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(var(--ground), rgba(5, 5, 9, 0.7) 20%, rgba(5, 5, 9, 0.7) 80%, var(--ground)), url("img/trees.jpg") center / cover; opacity: 0.55; border-radius: 6px; }
-.lines p { font-family: var(--font-display); font-weight: 800; font-size: clamp(26px, 6vw, 46px); line-height: 1.1; max-width: 18ch; margin: 0; text-wrap: balance; }
+.lines p { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; font-size: clamp(26px, 6vw, 42px); line-height: 1.1; max-width: 18ch; margin: 0; text-wrap: balance; }
 .lines small { display: block; margin-top: 8px; font-family: var(--font-body); font-weight: 500; font-size: 16px; color: var(--ink-soft); }
 
 /* ---------- invitation ---------- */
@@ -125,7 +124,7 @@ p { margin: 0 0 16px; max-width: 60ch; }
 .draft-label { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); margin: 34px 0 8px; }
 .draft { width: min(100%, 520px); padding: 18px; border-radius: 14px; background: var(--ground-2); border: 1px dashed #2b3150; font-size: 16px; user-select: all; white-space: pre-wrap; text-align: left; margin-bottom: 20px; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center; }
-.btn { font: inherit; font-weight: 700; font-size: 16px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 26px; border-radius: 999px; border: 1px solid transparent; }
+.btn { font: inherit; font-weight: 700; letter-spacing: 0.04em; font-size: 16px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 26px; border-radius: 999px; border: 1px solid transparent; }
 .btn.primary { background: var(--red); color: #fff; box-shadow: 0 0 0 0 rgba(232, 17, 45, 0.6); animation: ping 2.2s ease-out infinite; }
 .btn.primary:hover { filter: brightness(1.1); }
 .btn.quiet { background: transparent; color: var(--ink); border-color: #2b3150; }
@@ -135,20 +134,48 @@ footer { padding-top: 40px; margin-top: 40px; color: var(--ink-soft); font-size:
 footer p { margin-inline: auto; }
 footer strong { color: var(--ink); }
 
-/* ---------- gate + sound ---------- */
-.gate { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; text-align: center;
-  padding: 24px max(16px, env(safe-area-inset-right, 0px)) 24px max(16px, env(safe-area-inset-left, 0px));
-  background: radial-gradient(90% 70% at 50% 30%, var(--red-deep), var(--ground) 75%); transition: opacity 0.6s; }
+/* ---------- sound toggle ---------- */
+.sound { position: fixed; z-index: 40; right: max(16px, env(safe-area-inset-right, 0px)); bottom: max(16px, env(safe-area-inset-bottom, 0px)); min-width: 48px; padding-inline: 18px; background: rgba(5, 5, 9, 0.7); }
+
+/* ---------- gate: glass music player over her photo ---------- */
+.gate { position: fixed; inset: 0; z-index: 50; overflow: hidden; background: #c4000f; color: #fff; transition: opacity 0.6s; }
 .gate[hidden] { display: none; }
 .gate.out { opacity: 0; pointer-events: none; }
-.gate h2 { margin: 0; }
-.gate p { margin: 0; color: var(--ink-soft); max-width: 34ch; }
-.sound { position: fixed; z-index: 40; right: max(16px, env(safe-area-inset-right, 0px)); bottom: max(16px, env(safe-area-inset-bottom, 0px)); min-width: 48px; padding-inline: 18px; background: rgba(5, 5, 9, 0.7); }
+.g-bg { position: absolute; inset: -3%; background: url(img/hero-red.jpg) 38% 0% / cover no-repeat; transform-origin: 50% 0%;
+  transform: translate3d(calc(var(--tx, 0) * -12px), calc(var(--ty, 0) * -12px), 0) scale(1.04);
+  filter: grayscale(1) contrast(1.15) brightness(1.6); animation: gkb 18s ease-in-out infinite alternate; }
+@keyframes gkb { to { scale: 1.05; } }
+.g-tint { position: absolute; inset: 0; background: #e0001a; mix-blend-mode: multiply; }
+.g-lift { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,50,60,.4), rgba(255,0,20,.1) 55%, rgba(110,0,8,.4)); mix-blend-mode: screen; }
+.g-vig { position: absolute; inset: 0; background: radial-gradient(120% 75% at 50% 40%, transparent 50%, rgba(40,0,3,.3)); }
+.g-card { position: absolute; left: 50%; translate: -50% 0; width: min(calc(100% - 36px), 420px); bottom: max(70px, calc(env(safe-area-inset-bottom, 0px) + 56px));
+  padding: 22px 20px 20px; border-radius: 44px; overflow: hidden; background: rgba(255,255,255,.1);
+  backdrop-filter: blur(16px) saturate(1.3); -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  border: 1px solid rgba(255,255,255,.32); box-shadow: 0 18px 50px rgba(70,0,6,.45), inset 0 1px 0 rgba(255,255,255,.4), inset 0 -1px 0 rgba(255,255,255,.12); }
+.g-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; filter: blur(14px);
+  background: radial-gradient(55% 70% at 40% 60%, rgba(12,16,14,.72), transparent 72%), radial-gradient(35% 50% at 95% 10%, rgba(12,16,14,.5), transparent 70%), radial-gradient(30% 40% at 0% 15%, rgba(255,255,255,.22), transparent 70%); }
+.g-card > * { position: relative; }
+.g-row { display: flex; gap: 18px; align-items: flex-start; }
+.g-art { flex: none; width: 92px; height: 92px; border-radius: 26px; background: url(img/art.jpg) 50% 22% / cover; box-shadow: 0 6px 18px rgba(60,0,5,.4); }
+.g-meta b { display: block; font-size: 15px; letter-spacing: .03em; font-weight: 500; text-transform: uppercase; }
+.g-meta p { margin: 9px 0 0; max-width: none; font-size: 13px; line-height: 1.35; color: rgba(255,255,255,.82); }
+.g-ctl { display: flex; align-items: center; justify-content: space-between; margin-top: 22px; }
+.g-b { width: 56px; height: 56px; border-radius: 50%; border: 0; padding: 0; background: rgba(255,255,255,.3); display: flex; align-items: center; justify-content: center; color: #fff; }
+.g-b svg { width: 20px; height: 20px; fill: #fff; }
+.g-b.hi { background: rgba(255,255,255,.5); }
+button.g-b { cursor: pointer; }
+#enter { animation: gring 1.8s ease-out infinite; }
+.gate.on #enter { animation: none; }
+@keyframes gring { 0% { box-shadow: 0 0 0 0 rgba(255,255,255,.55); } 100% { box-shadow: 0 0 0 18px rgba(255,255,255,0); } }
+.g-pause { display: none; } .gate.on .g-pause { display: block; } .gate.on .g-playi { display: none; }
+.g-foot { position: absolute; left: 0; right: 0; bottom: max(28px, env(safe-area-inset-bottom, 0px)); margin: 0; max-width: none; text-align: center; font-size: 12px; letter-spacing: .04em; color: rgba(255,255,255,.75); }
+.g-flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .g-bg, #enter { animation: none; } }
 
 /* film grain + scanlines, the "After Hours" look */
 body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 60; opacity: 0.07; mix-blend-mode: screen;
   background: repeating-linear-gradient(0deg, rgba(255,255,255,.5) 0 1px, transparent 1px 3px); }
-h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.5), -2px 0 rgba(232, 17, 45, 0.5); }
+h1 { text-shadow: 0 0 32px rgba(232, 17, 45, 0.6); }
 
 /* ---------- full-screen concert video (page one) ---------- */
 .stage { position: fixed; inset: 0; z-index: 5; display: block; padding: 0; background: #000; }
@@ -157,7 +184,7 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
 @media (min-aspect-ratio: 1/1) { .live-frame { inset: 10px auto 10px 50%; width: calc((100svh - 20px) * 464 / 848); translate: -50% 0; } }
 .live-top { position: absolute; z-index: 2; top: max(18px, env(safe-area-inset-top, 0px)); left: 0; right: 0; text-align: center; margin: 0; text-shadow: 0 0 12px #000; pointer-events: none; }
 .live-cap { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; margin: 0 auto; padding: 90px 20px max(34px, env(safe-area-inset-bottom, 0px)); max-width: none; text-align: center; pointer-events: none;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85)); font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: clamp(26px, 7.5vw, 44px); line-height: 1.05; text-shadow: 0 0 24px rgba(232, 17, 45, 0.6); }
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85)); font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; font-size: clamp(26px, 7vw, 42px); line-height: 1.05; text-shadow: 0 0 24px rgba(232, 17, 45, 0.6); }
 .live-play { position: absolute; z-index: 3; left: 50%; top: 50%; translate: -50% -50%; width: 84px; height: 84px; border-radius: 50%; border: 0; cursor: pointer; background: rgba(232, 17, 45, 0.9); color: #fff; font-size: 34px; padding-left: 6px; animation: ping 2.2s ease-out infinite; }
 .live-play[hidden] { display: none; }
 
@@ -192,9 +219,21 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
 <canvas id="fx" aria-hidden="true"></canvas>
 
 <div class="gate" id="gate">
-  <h2>Включи звук</h2>
-  <p>Для тебя есть музыка. Сделай погромче, и когда будешь готова, нажми кнопку.</p>
-  <button class="btn primary" id="enter" type="button">Я готова</button>
+  <div class="g-bg"></div><div class="g-tint"></div><div class="g-lift"></div><div class="g-vig"></div>
+  <div class="g-card">
+    <div class="g-row">
+      <div class="g-art" aria-hidden="true"></div>
+      <div class="g-meta"><b>Die For You</b><p id="gmt">Жанель, включи звук и лучше надень наушники. Когда будешь готова, нажми ▶.</p></div>
+    </div>
+    <div class="g-ctl">
+      <span class="g-b" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></span>
+      <button class="g-b" id="enter" type="button" aria-label="Включить песню"><svg class="g-playi" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg><svg class="g-pause" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg></button>
+      <span class="g-b hi" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></span>
+      <span class="g-b" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 18V6l11-2v12a3 3 0 1 1-2-2.8V7.6L11 8.8V18a3 3 0 1 1-2-2.8z"/></svg></span>
+    </div>
+  </div>
+  <p class="g-foot" id="gfoot">нажми ▶ — включится звук</p>
+  <div class="g-flash" id="gflash"></div>
 </div>
 <button class="btn quiet sound" id="sound" type="button" aria-pressed="true" hidden>Звук: вкл</button>
 <div class="fade" id="fade"></div>
@@ -361,6 +400,10 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
       if (i < text.length) setTimeout(step, 85); else setTimeout(function () { el.classList.remove("typing"); }, 1600);
     })();
   }
+  /* gate: the photo drifts with the pointer / phone tilt */
+  function gpar(x, y) { gate.style.setProperty("--tx", x); gate.style.setProperty("--ty", y); }
+  gate.addEventListener("pointermove", function (e) { gpar(e.clientX / innerWidth - 0.5, e.clientY / innerHeight - 0.5); });
+  window.addEventListener("deviceorientation", function (e) { if (e.gamma != null) gpar(Math.max(-1, Math.min(1, e.gamma / 25)) * 0.5, Math.max(-1, Math.min(1, (e.beta - 50) / 25)) * 0.5); });
   var lv = document.getElementById("liveVideo");
   document.getElementById("enter").addEventListener("click", function () {
     /* start the clip inside this tap so Safari/iOS allow its sound */
@@ -369,8 +412,14 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
     if (vp && vp.catch) vp.catch(function () { lp.hidden = false; });
     /* unlock the song silently in the same tap; it comes back when the clip ends */
     bgm.muted = true; var u = bgm.play(); if (u && u.then) u.then(function () { bgm.pause(); bgm.currentTime = 0; }, function () {});
-    gate.classList.add("out");
-    setTimeout(function () { gate.hidden = true; }, 650);
+    gate.classList.add("on");
+    document.getElementById("gmt").textContent = "Звук включён. Слушай, сейчас всё начнётся.";
+    document.getElementById("gfoot").textContent = "играет";
+    if (navigator.vibrate) navigator.vibrate(20);
+    var gf = document.getElementById("gflash"); gf.style.transition = "none"; gf.style.opacity = 0.45;
+    requestAnimationFrame(function () { gf.style.transition = "opacity .9s"; gf.style.opacity = 0; });
+    setTimeout(function () { gate.classList.add("out"); }, 1400);
+    setTimeout(function () { gate.hidden = true; }, 2050);
     var e = document.getElementById("enter").getBoundingClientRect(); burst(e.left + e.width / 2, e.top + e.height / 2, 30);
   });
   /* page 1 (the clip) -> fade through black -> page 2 (the site) */
