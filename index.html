@@ -346,22 +346,26 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
       if (i < text.length) setTimeout(step, 85); else setTimeout(function () { el.classList.remove("typing"); }, 1600);
     })();
   }
+  var lv = document.getElementById("liveVideo");
   document.getElementById("enter").addEventListener("click", function () {
-    bgm.muted = false; bgm.volume = 0;
-    var pr = bgm.play();
-    if (pr && pr.then) pr.then(function () { fadeTo(0.7); }, function () { soundBtn.textContent = "Звук: выкл"; soundBtn.setAttribute("aria-pressed", "false"); });
+    /* start the clip inside this tap so Safari/iOS allow its sound */
+    lv.muted = false; lv.volume = 1; lv.currentTime = 0;
+    var vp = lv.play();
+    if (vp && vp.catch) vp.catch(function () { /* blocked: she can press play on the frame */ });
+    /* unlock the song silently in the same tap; it comes back when the clip ends */
+    bgm.muted = true; var u = bgm.play(); if (u && u.then) u.then(function () { bgm.pause(); bgm.currentTime = 0; }, function () {});
     gate.classList.add("out");
     setTimeout(function () { gate.hidden = true; }, 650);
     soundBtn.hidden = false;
     document.body.classList.add("go");
+    document.getElementById("live").scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "center" });
     var h = document.getElementById("typed");
     if (!REDUCED) typeInto(h, h.dataset.text);
     var e = document.getElementById("enter").getBoundingClientRect(); burst(e.left + e.width / 2, e.top + e.height / 2, 30);
   });
   /* the concert clip has its own sound: duck the song while it plays, bring it back after */
-  var lv = document.getElementById("liveVideo");
   lv.addEventListener("play", function () { if (!bgm.paused) { fadeTo(0); setTimeout(function () { if (!lv.paused) bgm.pause(); }, 700); } });
-  function songBack() { if (soundBtn.getAttribute("aria-pressed") === "true" && bgm.paused) { bgm.volume = 0; bgm.play().then(function () { fadeTo(0.7); }, function () {}); } }
+  function songBack() { if (soundBtn.getAttribute("aria-pressed") === "true" && bgm.paused) { bgm.muted = false; bgm.volume = 0; bgm.play().then(function () { fadeTo(0.7); }, function () {}); } }
   lv.addEventListener("pause", songBack);
   lv.addEventListener("ended", songBack);
   soundBtn.addEventListener("click", function () {
