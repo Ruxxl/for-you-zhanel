@@ -368,8 +368,6 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
     intro.hidden = false; iv.currentTime = 0; iv.muted = false;
     var vp = iv.play();
     if (vp && vp.catch) vp.catch(function () { startSite(); });
-    var fs = window.matchMedia("(pointer: coarse)").matches ? null : (intro.requestFullscreen || intro.webkitRequestFullscreen);
-    if (fs) { try { var q = fs.call(intro); if (q && q.catch) q.catch(function () {}); } catch (err) {} }
   });
   iv.addEventListener("ended", function () {
     var ex = document.exitFullscreen || document.webkitExitFullscreen;
