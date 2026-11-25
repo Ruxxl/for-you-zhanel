@@ -155,6 +155,10 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
 .live-frame video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 23px; background: #000; }
 .live-cap { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: clamp(26px, 6.5vw, 44px); line-height: 1.05; margin: 0; text-shadow: 0 0 24px rgba(232, 17, 45, 0.55); }
 
+.stage { min-height: 100svh; padding-block: 24px; justify-content: center; }
+.fade { position: fixed; inset: 0; z-index: 90; background: #000; opacity: 0; pointer-events: none; transition: opacity 0.9s ease; }
+.fade.on { opacity: 1; pointer-events: auto; }
+
 /* ---------- motion ---------- */
 .js .rv { opacity: 0; transform: translateY(34px) scale(0.97); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: var(--d, 0s); }
 .js .rv.in { opacity: 1; transform: none; }
@@ -187,9 +191,20 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
   <button class="btn primary" id="enter" type="button">Я готова</button>
 </div>
 <button class="btn quiet sound" id="sound" type="button" aria-pressed="true" hidden>Звук: вкл</button>
+<div class="fade" id="fade"></div>
 <audio id="bgm" src="die-for-you.m4a" loop preload="auto"></audio>
 
 <main class="wrap">
+  <section class="chapter stage" id="live">
+    <p class="eyebrow rv">Для тебя</p>
+    <div class="live-frame rv">
+      <video id="liveVideo" src="intro.mp4?v=2" controls playsinline preload="metadata" poster="img/portrait.jpg" controlslist="nodownload noremoteplayback"></video>
+    </div>
+    <p class="live-cap rv" style="--d:.1s">Я бы умер за тебя</p>
+    <button class="btn quiet" id="next" type="button" style="margin-top:22px">Дальше</button>
+  </section>
+
+<div id="site" hidden>
   <header class="hero" id="top">
     <div class="ring h" style="--d:.05s"><img src="img/portrait.jpg" alt="Жанель" width="900" height="900"></div>
     <p class="eyebrow h" style="--d:.2s">Знакомство</p>
@@ -198,13 +213,6 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
     <a class="scroll h" href="#eyes" style="--d:2.8s">Листай вниз</a>
   </header>
 
-  <section class="chapter" id="live">
-    <p class="eyebrow rv">Для тебя</p>
-    <div class="live-frame rv">
-      <video id="liveVideo" src="intro.mp4?v=2" controls playsinline preload="metadata" poster="img/portrait.jpg" controlslist="nodownload noremoteplayback"></video>
-    </div>
-    <p class="live-cap rv" style="--d:.1s">Я бы умер за тебя</p>
-  </section>
 
   <section class="chapter" id="eyes">
     <p class="eyebrow rv">Взгляд</p>
@@ -272,6 +280,7 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
   <footer>
     <p>С любопытством, <strong>Руслан</strong>. Если ты не хочешь продолжать, просто закрой страницу. Я пойму.</p>
   </footer>
+</div>
 </main>
 
 <script>
@@ -356,18 +365,24 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
     bgm.muted = true; var u = bgm.play(); if (u && u.then) u.then(function () { bgm.pause(); bgm.currentTime = 0; }, function () {});
     gate.classList.add("out");
     setTimeout(function () { gate.hidden = true; }, 650);
-    soundBtn.hidden = false;
-    document.body.classList.add("go");
-    document.getElementById("live").scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "center" });
-    var h = document.getElementById("typed");
-    if (!REDUCED) typeInto(h, h.dataset.text);
     var e = document.getElementById("enter").getBoundingClientRect(); burst(e.left + e.width / 2, e.top + e.height / 2, 30);
   });
-  /* the concert clip has its own sound: duck the song while it plays, bring it back after */
-  lv.addEventListener("play", function () { if (!bgm.paused) { fadeTo(0); setTimeout(function () { if (!lv.paused) bgm.pause(); }, 700); } });
-  function songBack() { if (soundBtn.getAttribute("aria-pressed") === "true" && bgm.paused) { bgm.muted = false; bgm.volume = 0; bgm.play().then(function () { fadeTo(0.7); }, function () {}); } }
-  lv.addEventListener("pause", songBack);
-  lv.addEventListener("ended", songBack);
+  /* page 1 (the clip) -> fade through black -> page 2 (the site) */
+  var fade = document.getElementById("fade"), site = document.getElementById("site"), stage = document.getElementById("live"), moved = false;
+  function nextPage() {
+    if (moved) return; moved = true; lv.pause();
+    fade.classList.add("on");
+    setTimeout(function () {
+      stage.hidden = true; site.hidden = false; soundBtn.hidden = false; window.scrollTo(0, 0);
+      document.body.classList.add("go");
+      var h = document.getElementById("typed"); if (!REDUCED) typeInto(h, h.dataset.text);
+      if (soundBtn.getAttribute("aria-pressed") === "true") { bgm.muted = false; bgm.volume = 0; bgm.play().then(function () { fadeTo(0.7); }, function () {}); }
+      setTimeout(function () { fade.classList.remove("on"); }, 250);
+    }, REDUCED ? 0 : 950);
+  }
+  lv.addEventListener("ended", nextPage);
+  document.getElementById("next").addEventListener("click", nextPage);
+
   soundBtn.addEventListener("click", function () {
     var on = bgm.paused || bgm.muted;
     if (on) { bgm.muted = false; bgm.play().then(function () { fadeTo(0.7); }, function () {}); } else { bgm.pause(); }
