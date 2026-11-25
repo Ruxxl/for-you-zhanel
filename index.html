@@ -191,7 +191,7 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
 </div>
 <button class="btn quiet sound" id="sound" type="button" aria-pressed="true" hidden>Звук: вкл</button>
 <div class="intro" id="intro" hidden>
-  <video id="introVideo" src="intro.mp4" playsinline preload="auto"></video>
+  <video id="introVideo" src="intro.mp4" playsinline webkit-playsinline x5-playsinline disablepictureinpicture disableremoteplayback controlslist="nofullscreen noremoteplayback" preload="auto"></video>
   <button class="btn quiet skip" id="skip" type="button">Пропустить</button>
 </div>
 <audio id="bgm" src="die-for-you.m4a" loop preload="auto"></audio>
@@ -368,7 +368,7 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
     intro.hidden = false; iv.currentTime = 0; iv.muted = false;
     var vp = iv.play();
     if (vp && vp.catch) vp.catch(function () { startSite(); });
-    var fs = intro.requestFullscreen || intro.webkitRequestFullscreen;
+    var fs = window.matchMedia("(pointer: coarse)").matches ? null : (intro.requestFullscreen || intro.webkitRequestFullscreen);
     if (fs) { try { var q = fs.call(intro); if (q && q.catch) q.catch(function () {}); } catch (err) {} }
   });
   iv.addEventListener("ended", function () {
