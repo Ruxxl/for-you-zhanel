@@ -150,13 +150,10 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
   background: repeating-linear-gradient(0deg, rgba(255,255,255,.5) 0 1px, transparent 1px 3px); }
 h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.5), -2px 0 rgba(232, 17, 45, 0.5); }
 
-/* ---------- fullscreen intro video ---------- */
-.intro { position: fixed; inset: 0; z-index: 70; background: #000; display: flex; align-items: center; justify-content: center; transition: opacity 0.8s; }
-.intro[hidden] { display: none; }
-.intro.out { opacity: 0; pointer-events: none; }
-.intro video { width: 100%; height: 100%; object-fit: contain; background: #000; }
-@media (max-aspect-ratio: 3/4) { .intro video { object-fit: cover; } }
-.intro .skip { position: absolute; top: max(16px, env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); background: rgba(5, 5, 9, 0.55); min-height: 40px; padding: 8px 18px; font-size: 14px; }
+/* ---------- framed concert video ---------- */
+.live-frame { position: relative; width: min(78vw, 340px); aspect-ratio: 464 / 848; margin: 8px 0 28px; padding: 8px; border-radius: 30px; background: linear-gradient(160deg, var(--gold), var(--red-deep) 55%, var(--red)); box-shadow: 0 0 60px rgba(232, 17, 45, 0.35), 0 0 90px rgba(110, 168, 255, 0.18); animation: glow 3.6s ease-in-out infinite; }
+.live-frame video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 23px; background: #000; }
+.live-cap { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: clamp(26px, 6.5vw, 44px); line-height: 1.05; margin: 0; text-shadow: 0 0 24px rgba(232, 17, 45, 0.55); }
 
 /* ---------- motion ---------- */
 .js .rv { opacity: 0; transform: translateY(34px) scale(0.97); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: var(--d, 0s); }
@@ -190,10 +187,6 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
   <button class="btn primary" id="enter" type="button">Я готова</button>
 </div>
 <button class="btn quiet sound" id="sound" type="button" aria-pressed="true" hidden>Звук: вкл</button>
-<div class="intro" id="intro" hidden>
-  <video id="introVideo" src="intro.mp4?v=2" playsinline webkit-playsinline x5-playsinline disablepictureinpicture disableremoteplayback controlslist="nofullscreen noremoteplayback" preload="auto"></video>
-  <button class="btn quiet skip" id="skip" type="button">Пропустить</button>
-</div>
 <audio id="bgm" src="die-for-you.m4a" loop preload="auto"></audio>
 
 <main class="wrap">
@@ -204,6 +197,14 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
     <p class="sub h" style="--d:2.2s">Меня зовут Руслан. Я сделал для тебя маленькое кино про тебя.</p>
     <a class="scroll h" href="#eyes" style="--d:2.8s">Листай вниз</a>
   </header>
+
+  <section class="chapter" id="live">
+    <p class="eyebrow rv">Для тебя</p>
+    <div class="live-frame rv">
+      <video id="liveVideo" src="intro.mp4?v=2" controls playsinline preload="metadata" poster="img/portrait.jpg" controlslist="nodownload noremoteplayback"></video>
+    </div>
+    <p class="live-cap rv" style="--d:.1s">Я бы умер за тебя</p>
+  </section>
 
   <section class="chapter" id="eyes">
     <p class="eyebrow rv">Взгляд</p>
@@ -345,47 +346,24 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
       if (i < text.length) setTimeout(step, 85); else setTimeout(function () { el.classList.remove("typing"); }, 1600);
     })();
   }
-  var intro = document.getElementById("intro"), iv = document.getElementById("introVideo"), started = false;
-  function startSite() {
-    if (started) return; started = true;
-    intro.classList.add("out");
-    setTimeout(function () { intro.hidden = true; iv.pause(); }, 850);
+  document.getElementById("enter").addEventListener("click", function () {
     bgm.muted = false; bgm.volume = 0;
     var pr = bgm.play();
     if (pr && pr.then) pr.then(function () { fadeTo(0.7); }, function () { soundBtn.textContent = "Звук: выкл"; soundBtn.setAttribute("aria-pressed", "false"); });
-    soundBtn.hidden = false;
-    document.body.classList.add("go");
-    window.scrollTo(0, 0);
-    var h = document.getElementById("typed");
-    if (!REDUCED) typeInto(h, h.dataset.text);
-  }
-  document.getElementById("enter").addEventListener("click", function () {
-    var e = document.getElementById("enter").getBoundingClientRect(); burst(e.left + e.width / 2, e.top + e.height / 2, 30);
-    /* unlock the music inside this tap (iOS), then hold it until the video ends */
-    bgm.muted = true; var u = bgm.play(); if (u && u.then) u.then(function () { bgm.pause(); bgm.currentTime = 0; }, function () {});
     gate.classList.add("out");
     setTimeout(function () { gate.hidden = true; }, 650);
-    intro.hidden = false; iv.currentTime = 0; iv.muted = false;
-    var vp = iv.play();
-    if (vp && vp.catch) vp.catch(function () {
-      /* autoplay refused: let her start it with one more tap instead of skipping it silently */
-      var t = document.createElement("button"); t.className = "btn primary"; t.type = "button"; t.textContent = "Включить видео";
-      t.style.cssText = "position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:2";
-      t.addEventListener("click", function () { t.remove(); iv.muted = false; iv.play().catch(startSite); });
-      intro.appendChild(t);
-    });
+    soundBtn.hidden = false;
+    document.body.classList.add("go");
+    var h = document.getElementById("typed");
+    if (!REDUCED) typeInto(h, h.dataset.text);
+    var e = document.getElementById("enter").getBoundingClientRect(); burst(e.left + e.width / 2, e.top + e.height / 2, 30);
   });
-  iv.addEventListener("ended", function () {
-    var ex = document.exitFullscreen || document.webkitExitFullscreen;
-    if (document.fullscreenElement && ex) { try { ex.call(document); } catch (err) {} }
-    startSite();
-  });
-  iv.addEventListener("error", startSite);
-  document.getElementById("skip").addEventListener("click", function () {
-    var ex = document.exitFullscreen || document.webkitExitFullscreen;
-    if (document.fullscreenElement && ex) { try { ex.call(document); } catch (err) {} }
-    startSite();
-  });
+  /* the concert clip has its own sound: duck the song while it plays, bring it back after */
+  var lv = document.getElementById("liveVideo");
+  lv.addEventListener("play", function () { if (!bgm.paused) { fadeTo(0); setTimeout(function () { if (!lv.paused) bgm.pause(); }, 700); } });
+  function songBack() { if (soundBtn.getAttribute("aria-pressed") === "true" && bgm.paused) { bgm.volume = 0; bgm.play().then(function () { fadeTo(0.7); }, function () {}); } }
+  lv.addEventListener("pause", songBack);
+  lv.addEventListener("ended", songBack);
   soundBtn.addEventListener("click", function () {
     var on = bgm.paused || bgm.muted;
     if (on) { bgm.muted = false; bgm.play().then(function () { fadeTo(0.7); }, function () {}); } else { bgm.pause(); }
