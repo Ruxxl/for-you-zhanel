@@ -152,9 +152,9 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
 
 /* ---------- full-screen concert video (page one) ---------- */
 .stage { position: fixed; inset: 0; z-index: 5; display: block; padding: 0; background: #000; }
-.live-frame { position: absolute; inset: 0; margin: 0; overflow: hidden; box-shadow: inset 0 0 0 3px rgba(232, 17, 45, 0.55), inset 0 0 70px rgba(110, 168, 255, 0.25); }
+.live-frame { position: absolute; inset: max(10px, env(safe-area-inset-top, 0px)) 18px max(10px, env(safe-area-inset-bottom, 0px)); margin: 0; overflow: hidden; border-radius: 26px; box-shadow: inset 0 0 0 3px rgba(232, 17, 45, 0.55), inset 0 0 70px rgba(110, 168, 255, 0.25); }
 .live-frame video { display: block; width: 100%; height: 100%; object-fit: cover; background: #000; }
-@media (min-aspect-ratio: 1/1) { .live-frame { inset: 0 auto 0 50%; width: calc(100svh * 464 / 848); translate: -50% 0; } }
+@media (min-aspect-ratio: 1/1) { .live-frame { inset: 10px auto 10px 50%; width: calc((100svh - 20px) * 464 / 848); translate: -50% 0; } }
 .live-top { position: absolute; z-index: 2; top: max(18px, env(safe-area-inset-top, 0px)); left: 0; right: 0; text-align: center; margin: 0; text-shadow: 0 0 12px #000; pointer-events: none; }
 .live-cap { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; margin: 0 auto; padding: 90px 20px max(34px, env(safe-area-inset-bottom, 0px)); max-width: none; text-align: center; pointer-events: none;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.85)); font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: clamp(26px, 7.5vw, 44px); line-height: 1.05; text-shadow: 0 0 24px rgba(232, 17, 45, 0.6); }
