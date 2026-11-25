@@ -192,6 +192,12 @@ h1 { text-shadow: 0 0 32px rgba(232, 17, 45, 0.6); }
 .fade { position: fixed; inset: 0; z-index: 90; background: #000; opacity: 0; pointer-events: none; transition: opacity 0.9s ease; }
 .fade.on { opacity: 1; pointer-events: auto; }
 
+.joke { min-height: 1.7em; margin: 0 0 14px; font-size: clamp(18px, 4.8vw, 24px); font-weight: 600; color: var(--gold); text-align: center; transition: opacity 0.5s; }
+.joke.hide { opacity: 0; }
+.js .later { opacity: 0; transition: opacity 1.4s ease; }
+.unlock .later { opacity: 1; }
+html.lock, html.lock body { overflow: hidden; }
+
 /* ---------- motion ---------- */
 .js .rv { opacity: 0; transform: translateY(34px) scale(0.97); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: var(--d, 0s); }
 .js .rv.in { opacity: 1; transform: none; }
@@ -211,6 +217,7 @@ h1 { text-shadow: 0 0 32px rgba(232, 17, 45, 0.6); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .rv, .js .hero .h { opacity: 1; transform: none; }
+  .js .later { transition: none; }
   [data-p] { translate: none; }
 }
 </style>
@@ -237,7 +244,6 @@ h1 { text-shadow: 0 0 32px rgba(232, 17, 45, 0.6); }
 </div>
 <button class="btn quiet sound" id="sound" type="button" aria-pressed="true" hidden>Звук: вкл</button>
 <div class="fade" id="fade"></div>
-<audio id="bgm" src="die-for-you.m4a" loop preload="none"></audio>
 
 <main class="wrap">
   <section class="stage" id="live">
@@ -254,8 +260,9 @@ h1 { text-shadow: 0 0 32px rgba(232, 17, 45, 0.6); }
     <div class="ring h" style="--d:.05s"><img src="img/portrait.jpg" alt="Жанель" width="900" height="900"></div>
     <p class="eyebrow h" style="--d:.2s">Знакомство</p>
     <h1 id="typed" data-text="Привет, Жанель.">Привет, Жанель.</h1>
-    <p class="sub h" style="--d:2.2s">Меня зовут Руслан. Я сделал для тебя маленькое кино про тебя.</p>
-    <a class="scroll h" href="#eyes" style="--d:2.8s">Листай вниз</a>
+    <p class="joke" id="jokeLine" aria-live="polite"></p>
+    <p class="sub later">Меня зовут Руслан. Я сделал для тебя маленькое кино про тебя.</p>
+    <a class="scroll later" href="#eyes">Листай вниз</a>
   </header>
 
 
@@ -383,16 +390,20 @@ h1 { text-shadow: 0 0 32px rgba(232, 17, 45, 0.6); }
   });
 
   /* ---------- music + gate ---------- */
-  var bgm = document.getElementById("bgm"), gate = document.getElementById("gate"), soundBtn = document.getElementById("sound");
-  var fadeTimer = null;
-  function fadeTo(v) {
-    clearInterval(fadeTimer);
-    fadeTimer = setInterval(function () {
-      var d = v - bgm.volume;
-      if (Math.abs(d) < 0.03) { bgm.volume = v; clearInterval(fadeTimer); return; }
-      bgm.volume = Math.max(0, Math.min(1, bgm.volume + (d > 0 ? 0.03 : -0.03)));
-    }, 60);
+  var gate = document.getElementById("gate"), soundBtn = document.getElementById("sound");
+  /* ---- sample-accurate audio: the joke take, then the original, scheduled on the audio clock ---- */
+  var AC = window.AudioContext || window.webkitAudioContext, actx = null, gainN = null, abuf = {};
+  try { if (AC) { actx = new AC(); gainN = actx.createGain(); gainN.gain.value = 0.95; gainN.connect(actx.destination); } } catch (err) { actx = null; }
+  function loadBuf(name, url) {
+    if (!actx) return;
+    fetch(url).then(function (r) { return r.arrayBuffer(); }).then(function (ab) {
+      return new Promise(function (res, rej) { var p = actx.decodeAudioData(ab, res, rej); if (p && p.then) p.then(res, rej); });
+    }).then(function (b) { abuf[name] = b; }, function () {});
   }
+  loadBuf("joke", "joke.mp3?v=1");
+  var origQueued = false;
+  function queueOrig() { if (origQueued) return; origQueued = true; loadBuf("orig", "orig.mp3?v=1"); }
+  setTimeout(queueOrig, 3500);
   function typeInto(el, text) {
     var i = 0; el.textContent = ""; el.classList.add("typing");
     (function step() {
@@ -410,8 +421,8 @@ h1 { text-shadow: 0 0 32px rgba(232, 17, 45, 0.6); }
     lv.muted = false; lv.volume = 1; lv.currentTime = 0;
     var vp = lv.play();
     if (vp && vp.catch) vp.catch(function () { lp.hidden = false; });
-    /* unlock the song silently in the same tap; it comes back when the clip ends */
-    bgm.muted = true; var u = bgm.play(); if (u && u.then) u.then(function () { bgm.pause(); bgm.currentTime = 0; }, function () {});
+    /* unlock the audio engine inside this tap (iOS) and start fetching the original */
+    if (actx) { try { actx.resume(); } catch (err) {} queueOrig(); }
     gate.classList.add("on");
     document.getElementById("gmt").textContent = "Звук включён. Слушай, сейчас всё начнётся.";
     document.getElementById("gfoot").textContent = "играет";
@@ -429,12 +440,32 @@ h1 { text-shadow: 0 0 32px rgba(232, 17, 45, 0.6); }
   lv.addEventListener("playing", function () { lp.hidden = true; });
   var fade = document.getElementById("fade"), site = document.getElementById("site"), stage = document.getElementById("live"), moved = false;
   var fading = false;
+  function unlockSite() {
+    document.documentElement.classList.remove("lock");
+    document.body.classList.add("unlock");
+    var jl = document.getElementById("jokeLine"); jl.classList.add("hide");
+  }
+  function say(text) { var jl = document.getElementById("jokeLine"); jl.classList.remove("hide"); jl.textContent = text; }
+  function playSequence() {
+    var tries = 0;
+    (function go() {
+      if (!actx || !abuf.joke || !abuf.orig) { if (++tries < 200) { setTimeout(go, 100); } else { unlockSite(); } return; }
+      var lead = 0.2, t0 = actx.currentTime + lead, jd = abuf.joke.duration;
+      var j = actx.createBufferSource(); j.buffer = abuf.joke; j.connect(gainN); j.start(t0);
+      var o = actx.createBufferSource(); o.buffer = abuf.orig; o.connect(gainN); o.start(t0 + jd);   /* lands exactly on the end of the joke take */
+      setTimeout(function () { say("Что это за песня?"); }, lead * 1000 + 2300);
+      setTimeout(function () { say("Я шучу. А теперь давай серьёзно."); }, lead * 1000 + Math.max(0, jd * 1000 - 2400));
+      setTimeout(unlockSite, lead * 1000 + jd * 1000);
+    })();
+  }
   function swapPage() {
     if (moved) return; moved = true; lv.pause();
+    document.documentElement.classList.add("lock");
     stage.hidden = true; site.hidden = false; soundBtn.hidden = false; window.scrollTo(0, 0);
     document.body.classList.add("go");
     var h = document.getElementById("typed"); if (!REDUCED) typeInto(h, h.dataset.text);
-    if (soundBtn.getAttribute("aria-pressed") === "true") { bgm.muted = false; bgm.volume = 0; bgm.play().then(function () { fadeTo(0.7); }, function () {}); }
+    if (soundBtn.getAttribute("aria-pressed") === "true" && actx) { try { actx.resume(); } catch (err) {} }
+    playSequence();
     setTimeout(function () { fade.classList.remove("on"); }, 250);
   }
   /* start going dark a second BEFORE the clip ends, so the last frame / pause is never seen */
@@ -450,8 +481,8 @@ h1 { text-shadow: 0 0 32px rgba(232, 17, 45, 0.6); }
   lv.addEventListener("ended", beginFade);
 
   soundBtn.addEventListener("click", function () {
-    var on = bgm.paused || bgm.muted;
-    if (on) { bgm.muted = false; bgm.play().then(function () { fadeTo(0.7); }, function () {}); } else { bgm.pause(); }
+    var on = soundBtn.getAttribute("aria-pressed") !== "true";
+    if (actx) { try { if (on) actx.resume(); else actx.suspend(); } catch (err) {} }
     soundBtn.textContent = on ? "Звук: вкл" : "Звук: выкл";
     soundBtn.setAttribute("aria-pressed", on ? "true" : "false");
   });
