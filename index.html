@@ -191,7 +191,7 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
 </div>
 <button class="btn quiet sound" id="sound" type="button" aria-pressed="true" hidden>Звук: вкл</button>
 <div class="intro" id="intro" hidden>
-  <video id="introVideo" src="intro.mp4" playsinline webkit-playsinline x5-playsinline disablepictureinpicture disableremoteplayback controlslist="nofullscreen noremoteplayback" preload="auto"></video>
+  <video id="introVideo" src="intro.mp4?v=2" playsinline webkit-playsinline x5-playsinline disablepictureinpicture disableremoteplayback controlslist="nofullscreen noremoteplayback" preload="auto"></video>
   <button class="btn quiet skip" id="skip" type="button">Пропустить</button>
 </div>
 <audio id="bgm" src="die-for-you.m4a" loop preload="auto"></audio>
@@ -367,7 +367,13 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
     setTimeout(function () { gate.hidden = true; }, 650);
     intro.hidden = false; iv.currentTime = 0; iv.muted = false;
     var vp = iv.play();
-    if (vp && vp.catch) vp.catch(function () { startSite(); });
+    if (vp && vp.catch) vp.catch(function () {
+      /* autoplay refused: let her start it with one more tap instead of skipping it silently */
+      var t = document.createElement("button"); t.className = "btn primary"; t.type = "button"; t.textContent = "Включить видео";
+      t.style.cssText = "position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:2";
+      t.addEventListener("click", function () { t.remove(); iv.muted = false; iv.play().catch(startSite); });
+      intro.appendChild(t);
+    });
   });
   iv.addEventListener("ended", function () {
     var ex = document.exitFullscreen || document.webkitExitFullscreen;
