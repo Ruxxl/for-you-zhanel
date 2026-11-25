@@ -206,60 +206,61 @@ h1 { text-shadow: 0 0 32px rgba(232, 17, 45, 0.6); }
 html.lock, html.lock body { overflow: hidden; }
 
 
-/* ---------- the story: 36 frames, romantic ---------- */
+/* ---------- memory wall + stories ---------- */
 .serif { font-family: "Cormorant Garamond", "Iowan Old Style", Georgia, "Times New Roman", serif; font-style: italic; font-weight: 600; letter-spacing: -0.01em; }
-.story-open { min-height: 92svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-block: 90px 40px; }
-.story-open h2 { font-size: clamp(46px, 13vw, 96px); line-height: 0.98; margin: 0 0 22px; }
-.story-open .epi { max-width: 30ch; color: var(--ink-soft); font-size: 18px; margin-inline: auto; }
-.cue { display: block; width: 1px; height: 64px; margin-top: 26px; background: linear-gradient(var(--red), transparent); animation: drip 2s ease-in-out infinite; }
-.chap { position: relative; isolation: isolate; --w1: rgba(232, 17, 45, 0.20); --w2: rgba(110, 168, 255, 0.14); }
-.chap.c2 { --w1: rgba(255, 168, 70, 0.17); --w2: rgba(255, 70, 110, 0.15); }
-.chap.c3 { --w1: rgba(190, 90, 255, 0.15); --w2: rgba(255, 70, 110, 0.18); }
-.chap::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; filter: blur(30px);
-  background: radial-gradient(70% 9% at 8% 12%, var(--w1), transparent), radial-gradient(70% 9% at 95% 38%, var(--w2), transparent), radial-gradient(70% 9% at 5% 66%, var(--w1), transparent), radial-gradient(70% 9% at 95% 92%, var(--w2), transparent); }
-.ch { min-height: 78svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-block: 60px; }
-.rom { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; font-size: clamp(90px, 30vw, 220px); line-height: 0.9; color: transparent; -webkit-text-stroke: 1px rgba(245, 236, 230, 0.4); margin-bottom: 10px; }
-.ch h2 { font-size: clamp(40px, 11vw, 78px); line-height: 1; margin: 0 0 14px; }
-.tag { max-width: 26ch; color: var(--ink-soft); font-size: 18px; margin-inline: auto; }
-.scene { display: grid; gap: 22px; padding-block: 44px; align-items: center; }
-.ph { position: relative; margin: 0; width: min(84%, 400px); border-radius: 22px; overflow: hidden; background: #120a0e;
-  box-shadow: 0 34px 80px -24px rgba(232, 17, 45, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.09), inset 0 0 0 1px rgba(255, 255, 255, 0.04); }
-.ph img { display: block; width: 100%; height: auto; }
-.ph::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 60%, rgba(5, 5, 9, 0.35)); }
-.scene:nth-of-type(odd) .ph { justify-self: start; rotate: -1.4deg; }
-.scene:nth-of-type(even) .ph { justify-self: end; rotate: 1.4deg; }
-.tx { position: relative; max-width: 36ch; }
-.scene:nth-of-type(even) .tx { justify-self: start; }
-.no { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; font-size: 58px; line-height: 0.8; color: rgba(232, 17, 45, 0.6); margin-bottom: 6px; }
-.tx h3 { font-size: clamp(30px, 8vw, 40px); line-height: 1.02; margin: 0 0 12px; }
-.tx p { margin: 0; font-size: 17px; line-height: 1.7; color: var(--ink-soft); }
-.tx .hl { display: block; margin-top: 10px; font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 600; font-size: clamp(23px, 6vw, 28px); line-height: 1.25; color: var(--ink); text-shadow: 0 0 26px rgba(232, 17, 45, 0.35); }
-@media (min-width: 860px) {
-  .scene { grid-template-columns: 1fr 1fr; gap: 64px; padding-block: 70px; }
-  .ph { width: 100%; max-width: 380px; }
-  .scene:nth-of-type(odd) .ph { justify-self: end; }
-  .scene:nth-of-type(even) .ph { justify-self: start; order: 2; }
-  .scene:nth-of-type(even) .tx { order: 1; justify-self: end; text-align: right; }
-  .scene:nth-of-type(odd) .tx { justify-self: start; }
-}
+.wall-sec { padding-block: 90px 30px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.wall-sec h2 { font-size: clamp(42px, 12vw, 84px); line-height: 1; margin: 0 0 12px; }
+.wall-sub { color: var(--ink-soft); margin-bottom: 34px; }
+.wall { column-count: 2; column-gap: 14px; width: 100%; padding: 10px 4px 0; }
+@media (min-width: 640px) { .wall { column-count: 3; column-gap: 22px; } }
+@media (min-width: 940px) { .wall { column-count: 4; column-gap: 26px; } }
+.pola { display: block; width: 100%; margin: 0 0 22px; padding: 8px 8px 0; break-inside: avoid; border: 0; border-radius: 4px; background: var(--paper); color: var(--paper-ink); cursor: pointer; font: inherit; text-align: center;
+  rotate: var(--r, 0deg); box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55); transition: rotate 0.35s, scale 0.35s, box-shadow 0.35s; position: relative; -webkit-tap-highlight-color: transparent; }
+.pola::before { content: ""; position: absolute; left: 50%; top: -7px; width: 13px; height: 13px; translate: -50% 0; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ff7088, var(--red) 60%, var(--red-deep)); box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5); }
+.pola img { display: block; width: 100%; height: auto; border-radius: 2px; }
+.pola .cap { display: block; padding: 8px 4px 10px; font-size: 17px; line-height: 1.1; }
+.pola:hover, .pola:focus-visible { rotate: 0deg; scale: 1.05; z-index: 2; box-shadow: 0 24px 50px rgba(232, 17, 45, 0.35); outline: none; }
+.js .pola { opacity: 0; translate: 0 36px; transition: opacity 0.8s ease, translate 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), rotate 0.35s, scale 0.35s, box-shadow 0.35s; }
+.js .pola.in { opacity: 1; translate: 0 0; }
+.st-cta { padding-block: 70px 80px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.st-cta h2 { font-size: clamp(40px, 11vw, 78px); line-height: 1; margin: 0 0 16px; }
 .fin { min-height: 90svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-block: 80px; }
 .fin-l { max-width: 24ch; font-size: clamp(20px, 5vw, 26px); color: var(--ink-soft); margin: 0 auto 10px; }
 .fin-w { font-size: clamp(150px, 46vw, 340px); line-height: 0.9; padding-bottom: 0.08em; background: linear-gradient(160deg, #ff7088, var(--red) 55%, var(--red-deep)); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 40px rgba(232, 17, 45, 0.55)); animation: beat 2.6s ease-in-out infinite; }
-.counter { position: fixed; z-index: 40; left: max(16px, env(safe-area-inset-left, 0px)); bottom: max(18px, env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; gap: 10px; font-size: 13px; letter-spacing: 0.14em; color: var(--ink-soft); opacity: 0; transition: opacity 0.5s; pointer-events: none; }
-.counter.on { opacity: 1; }
-.counter i { display: block; width: 54px; height: 2px; background: rgba(255, 255, 255, 0.15); border-radius: 2px; overflow: hidden; }
-.counter b { display: block; height: 100%; width: calc(var(--pr, 0) * 100%); background: var(--red); transition: width 0.5s; }
-.js .scene .ph { clip-path: inset(0 0 100% 0 round 22px); transition: clip-path 1.2s cubic-bezier(0.2, 0.7, 0.2, 1); }
-.js .scene .ph img { transform: scale(1.14); transition: transform 1.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
-.js .scene .tx > * { opacity: 0; transform: translateY(22px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
-.js .scene .tx > :nth-child(2) { transition-delay: 0.12s; } .js .scene .tx > :nth-child(3) { transition-delay: 0.26s; }
-.js .scene.in .ph { clip-path: inset(0 0 0 0 round 22px); }
-.js .scene.in .ph img { transform: none; }
-.js .scene.in .tx > * { opacity: 1; transform: none; }
-.js .ch > *, .js .fin > * { opacity: 0; transform: translateY(26px); transition: opacity 1s ease, transform 1s cubic-bezier(0.2, 0.7, 0.2, 1); }
-.js .ch > :nth-child(2), .js .fin > :nth-child(2) { transition-delay: 0.15s; } .js .ch > :nth-child(3), .js .fin > :nth-child(3) { transition-delay: 0.3s; }
-.js .ch.in > *, .js .fin.in > * { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .js .scene .ph, .js .scene .ph img, .js .scene .tx > *, .js .ch > *, .js .fin > * { clip-path: none; opacity: 1; transform: none; transition: none; } }
+.js .fin > * { opacity: 0; transform: translateY(26px); transition: opacity 1s ease, transform 1s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.js .fin > :nth-child(2) { transition-delay: 0.15s; } .js .fin > :nth-child(3) { transition-delay: 0.3s; }
+.js .fin.in > * { opacity: 1; transform: none; }
+/* lightbox */
+.lb { position: fixed; inset: 0; z-index: 80; display: flex; align-items: center; justify-content: center; background: rgba(5, 5, 9, 0.92); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); animation: lbin 0.3s ease both; }
+@keyframes lbin { from { opacity: 0; } to { opacity: 1; } }
+.lb-fig { margin: 0; width: min(88vw, 420px); text-align: center; }
+.lb-fig img { display: block; max-width: 100%; max-height: 58svh; margin: 0 auto 16px; border-radius: 6px; border: 8px solid var(--paper); box-shadow: 0 30px 80px rgba(232, 17, 45, 0.35); }
+.lb-fig h3 { margin: 0 0 6px; font-size: 32px; line-height: 1; }
+.lb-fig p { margin: 0 auto; max-width: 32ch; color: var(--ink-soft); font-size: 16px; }
+.lb-h { margin-top: 8px !important; font-size: 24px !important; line-height: 1.2; color: var(--ink) !important; }
+.lb-x { position: absolute; top: max(14px, env(safe-area-inset-top, 0px)); right: 16px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid #2b3150; background: rgba(5, 5, 9, 0.6); color: var(--ink); font-size: 28px; line-height: 1; cursor: pointer; }
+.lb-n { position: absolute; top: 50%; translate: 0 -50%; width: 44px; height: 64px; border: 0; background: transparent; color: var(--ink); font-size: 44px; cursor: pointer; opacity: 0.7; }
+.lb-p { left: 4px; } .lb-f { right: 4px; }
+/* stories */
+.st { position: fixed; inset: 0; z-index: 85; background: #000; overflow: hidden; touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+.st-bg { position: absolute; inset: -40px; background: center / cover no-repeat; filter: blur(34px) brightness(0.45) saturate(1.3); transition: background-image 0.4s; }
+.st-bars { position: absolute; z-index: 3; top: max(10px, env(safe-area-inset-top, 0px)); left: 10px; right: 10px; display: flex; gap: 3px; }
+.st-bars i { flex: 1; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, 0.28); overflow: hidden; }
+.st-bars i b { display: block; height: 100%; width: 0; background: #fff; }
+.st-bars i.done b { width: 100%; }
+.st-bars i.cur b { animation: stfill var(--dur, 6s) linear forwards; }
+.st.paused .st-bars i.cur b { animation-play-state: paused; }
+@keyframes stfill { to { width: 100%; } }
+.st-x { position: absolute; z-index: 4; top: calc(max(10px, env(safe-area-inset-top, 0px)) + 14px); right: 10px; width: 44px; height: 44px; border: 0; background: transparent; color: #fff; font-size: 32px; line-height: 1; cursor: pointer; }
+.st-ph { position: absolute; z-index: 1; left: 50%; top: calc(max(10px, env(safe-area-inset-top, 0px)) + 52px); translate: -50% 0; width: min(92vw, calc((100svh - 330px) * 0.735)); }
+.st-ph img { display: block; width: 100%; height: auto; border-radius: 18px; box-shadow: 0 30px 90px rgba(232, 17, 45, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12); animation: stin 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes stin { from { opacity: 0; transform: scale(1.06); } to { opacity: 1; transform: none; } }
+.st-tx { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding: 70px 24px max(34px, env(safe-area-inset-bottom, 0px)); text-align: center; background: linear-gradient(transparent, rgba(0, 0, 0, 0.8)); animation: stin 0.7s 0.1s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.st-tx h3 { margin: 0 0 6px; font-size: 34px; line-height: 1; }
+.st-tx p { margin: 0 auto; max-width: 30ch; font-size: 16px; color: #d6d2dc; }
+.st-h { margin-top: 8px !important; font-size: 25px !important; line-height: 1.2; color: #fff !important; text-shadow: 0 0 24px rgba(232, 17, 45, 0.5); }
+.st-hit { position: absolute; inset: 0; z-index: 3; margin-top: 60px; margin-bottom: 120px; }
+@media (min-aspect-ratio: 1/1) { .st-ph { width: min(40vw, calc((100svh - 330px) * 0.735)); } }
 
 /* ---------- motion ---------- */
 .js .rv { opacity: 0; transform: translateY(34px) scale(0.97); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: var(--d, 0s); }
@@ -307,7 +308,20 @@ html.lock, html.lock body { overflow: hidden; }
 </div>
 <button class="btn quiet sound" id="sound" type="button" aria-pressed="true" hidden>Звук: вкл</button>
 <div class="shout" id="shout" hidden aria-live="polite"><span>Шучу.</span><span>Теперь серьёзно.</span></div>
-<div class="counter" id="counter" aria-hidden="true"><span>01 / 36</span><i><b></b></i></div>
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Фото">
+  <button class="lb-x" id="lbX" type="button" aria-label="Закрыть">&times;</button>
+  <button class="lb-n lb-p" id="lbP" type="button" aria-label="Назад">&#8249;</button>
+  <button class="lb-n lb-f" id="lbF" type="button" aria-label="Дальше">&#8250;</button>
+  <figure class="lb-fig"><img id="lbImg" alt=""><figcaption><h3 class="serif" id="lbT"></h3><p id="lbA"></p><p class="lb-h serif" id="lbB"></p></figcaption></figure>
+</div>
+<div class="st" id="st" hidden role="dialog" aria-modal="true" aria-label="Истории">
+  <div class="st-bg" id="stBg"></div>
+  <div class="st-bars" id="stBars"></div>
+  <button class="st-x" id="stX" type="button" aria-label="Закрыть">&times;</button>
+  <div class="st-ph"><img id="stImg" alt=""></div>
+  <div class="st-tx"><h3 class="serif" id="stT"></h3><p id="stA"></p><p class="st-h serif" id="stB"></p></div>
+  <div class="st-hit" id="stHit" aria-hidden="true"></div>
+</div>
 <div class="fade" id="fade"></div>
 
 <main class="wrap">
@@ -322,335 +336,108 @@ html.lock, html.lock body { overflow: hidden; }
 
 <div id="site" hidden>
   <header class="hero" id="top">
-    <div class="ring h" style="--d:.05s"><img src="img/portrait.jpg" alt="Жанель" width="900" height="900"></div>
+    <div class="ring h" style="--d:.05s"><img id="ringImg" src="img/portrait.jpg" alt="Жанель" width="900" height="900"></div>
     <p class="eyebrow h" style="--d:.2s">Знакомство</p>
     <h1 id="typed" data-text="Уважаемая Жанель.">Уважаемая Жанель.</h1>
     <p class="joke" id="jokeLine" aria-live="polite"></p>
     <p class="sub later">Меня зовут Руслан. Я сделал для тебя маленькое кино про тебя.</p>
-    <a class="scroll later" href="#story">Листай вниз</a>
+    <a class="scroll later" href="#wall">Листай вниз</a>
   </header>
 
 
-  <section class="story-open" id="story">
-    <p class="eyebrow rv">36 кадров · одна ты</p>
-    <h2 class="serif rv" style="--d:.1s">Какой я тебя <em>вижу</em></h2>
-    <p class="epi rv" style="--d:.2s">Играет «Die For You». Свет приглушён, город не спит, а я листаю тебя кадр за кадром.</p>
-    <span class="cue rv" style="--d:.35s" aria-hidden="true"></span>
+  <section class="wall-sec" id="wall">
+    <p class="eyebrow rv">Стена воспоминаний</p>
+    <h2 class="serif rv" style="--d:.08s">Я собрал тебя <em>здесь</em></h2>
+    <p class="wall-sub rv" style="--d:.16s">Нажми на любое фото.</p>
+    <div class="wall" id="wallGrid">
+      <button class="pola" type="button" data-i="0" style="--r:-4deg" aria-label="Открыть кадр: Тепло">
+        <img src="img/s/04.jpg" alt="Жанель, кадр 4" width="363" height="493" loading="lazy" decoding="async">
+        <span class="cap serif">Тепло</span>
+      </button>
+      <button class="pola" type="button" data-i="1" style="--r:3deg" aria-label="Открыть кадр: Мой свет">
+        <img src="img/s/05.jpg" alt="Жанель, кадр 5" width="363" height="493" loading="lazy" decoding="async">
+        <span class="cap serif">Мой свет</span>
+      </button>
+      <button class="pola" type="button" data-i="2" style="--r:-2deg" aria-label="Открыть кадр: Рай">
+        <img src="img/s/06.jpg" alt="Жанель, кадр 6" width="363" height="491" loading="lazy" decoding="async">
+        <span class="cap serif">Рай</span>
+      </button>
+      <button class="pola" type="button" data-i="3" style="--r:5deg" aria-label="Открыть кадр: Тишина">
+        <img src="img/s/07.jpg" alt="Жанель, кадр 7" width="364" height="492" loading="lazy" decoding="async">
+        <span class="cap serif">Тишина</span>
+      </button>
+      <button class="pola" type="button" data-i="4" style="--r:-3deg" aria-label="Открыть кадр: Прямо в меня">
+        <img src="img/s/08.jpg" alt="Жанель, кадр 8" width="364" height="492" loading="lazy" decoding="async">
+        <span class="cap serif">Прямо в меня</span>
+      </button>
+      <button class="pola" type="button" data-i="5" style="--r:2deg" aria-label="Открыть кадр: Гроза">
+        <img src="img/s/09.jpg" alt="Жанель, кадр 9" width="364" height="492" loading="lazy" decoding="async">
+        <span class="cap serif">Гроза</span>
+      </button>
+      <button class="pola" type="button" data-i="6" style="--r:4deg" aria-label="Открыть кадр: Невесомость">
+        <img src="img/s/10.jpg" alt="Жанель, кадр 10" width="364" height="492" loading="lazy" decoding="async">
+        <span class="cap serif">Невесомость</span>
+      </button>
+      <button class="pola" type="button" data-i="7" style="--r:-5deg" aria-label="Открыть кадр: Дикая">
+        <img src="img/s/11.jpg" alt="Жанель, кадр 11" width="361" height="489" loading="lazy" decoding="async">
+        <span class="cap serif">Дикая</span>
+      </button>
+      <button class="pola" type="button" data-i="8" style="--r:1deg" aria-label="Открыть кадр: Ветер">
+        <img src="img/s/12.jpg" alt="Жанель, кадр 12" width="361" height="489" loading="lazy" decoding="async">
+        <span class="cap serif">Ветер</span>
+      </button>
+      <button class="pola" type="button" data-i="9" style="--r:-2deg" aria-label="Открыть кадр: Опора">
+        <img src="img/s/13.jpg" alt="Жанель, кадр 13" width="359" height="486" loading="lazy" decoding="async">
+        <span class="cap serif">Опора</span>
+      </button>
+      <button class="pola" type="button" data-i="10" style="--r:3deg" aria-label="Открыть кадр: Осень">
+        <img src="img/s/14.jpg" alt="Жанель, кадр 14" width="360" height="486" loading="lazy" decoding="async">
+        <span class="cap serif">Осень</span>
+      </button>
+      <button class="pola" type="button" data-i="11" style="--r:-4deg" aria-label="Открыть кадр: Тайна">
+        <img src="img/s/15.jpg" alt="Жанель, кадр 15" width="360" height="486" loading="lazy" decoding="async">
+        <span class="cap serif">Тайна</span>
+      </button>
+      <button class="pola" type="button" data-i="12" style="--r:2deg" aria-label="Открыть кадр: Куда угодно">
+        <img src="img/s/16.jpg" alt="Жанель, кадр 16" width="359" height="486" loading="lazy" decoding="async">
+        <span class="cap serif">Куда угодно</span>
+      </button>
+      <button class="pola" type="button" data-i="13" style="--r:-3deg" aria-label="Открыть кадр: Дерзкая">
+        <img src="img/s/17.jpg" alt="Жанель, кадр 17" width="360" height="486" loading="lazy" decoding="async">
+        <span class="cap serif">Дерзкая</span>
+      </button>
+      <button class="pola" type="button" data-i="14" style="--r:5deg" aria-label="Открыть кадр: Старая песня">
+        <img src="img/s/18.jpg" alt="Жанель, кадр 18" width="359" height="486" loading="lazy" decoding="async">
+        <span class="cap serif">Старая песня</span>
+      </button>
+      <button class="pola" type="button" data-i="15" style="--r:-1deg" aria-label="Открыть кадр: Закат">
+        <img src="img/s/19.jpg" alt="Жанель, кадр 19" width="360" height="486" loading="lazy" decoding="async">
+        <span class="cap serif">Закат</span>
+      </button>
+      <button class="pola" type="button" data-i="16" style="--r:4deg" aria-label="Открыть кадр: Обернись">
+        <img src="img/s/20.jpg" alt="Жанель, кадр 20" width="447" height="604" loading="lazy" decoding="async">
+        <span class="cap serif">Обернись</span>
+      </button>
+      <button class="pola" type="button" data-i="17" style="--r:-3deg" aria-label="Открыть кадр: Растворяюсь">
+        <img src="img/s/21.jpg" alt="Жанель, кадр 21" width="446" height="604" loading="lazy" decoding="async">
+        <span class="cap serif">Растворяюсь</span>
+      </button>
+    </div>
   </section>
-  <div class="chap c1">
-    <header class="ch">
-      <span class="rom" aria-hidden="true">I</span>
-      <h2 class="serif">Неон и ночь</h2>
-      <p class="tag">Когда гаснет день, ты становишься ярче.</p>
-    </header>
-    <article class="scene" data-n="1">
-      <figure class="ph"><img src="img/s/01.jpg" alt="Жанель, кадр 1" width="362" height="493" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">01</span>
-        <h3 class="serif">Первый вдох</h3>
-        <p>Я увидел тебя, и внутри стало тихо. <span class="hl">Как будто всё это время я просто ждал.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="2">
-      <figure class="ph"><img src="img/s/02.jpg" alt="Жанель, кадр 2" width="363" height="491" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">02</span>
-        <h3 class="serif">Не страшно</h3>
-        <p>С тобой страшно и хорошо одновременно. <span class="hl">Я выбираю это каждый раз.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="3">
-      <figure class="ph"><img src="img/s/03.jpg" alt="Жанель, кадр 3" width="363" height="491" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">03</span>
-        <h3 class="serif">Всё остальное фон</h3>
-        <p>Ты оборачиваешься, и мир гаснет сам. <span class="hl">Мне больше ничего не нужно видеть.</span></p>
-      </div>
-    </article>
-  </div>
-  <div class="chap c2">
-    <header class="ch">
-      <span class="rom" aria-hidden="true">II</span>
-      <h2 class="serif">Закат и золото</h2>
-      <p class="tag">Там, где тепло, мне хочется остановить время.</p>
-    </header>
-    <article class="scene" data-n="4">
-      <figure class="ph"><img src="img/s/04.jpg" alt="Жанель, кадр 4" width="363" height="493" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">04</span>
-        <h3 class="serif">Тепло</h3>
-        <p>Рядом с тобой даже молчание звучит как признание. <span class="hl">Я слушаю его часами.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="5">
-      <figure class="ph"><img src="img/s/05.jpg" alt="Жанель, кадр 5" width="363" height="493" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">05</span>
-        <h3 class="serif">Мой свет</h3>
-        <p>Ты делаешь любой день золотым, сама того не замечая. <span class="hl">А я замечаю каждый раз.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="6">
-      <figure class="ph"><img src="img/s/06.jpg" alt="Жанель, кадр 6" width="363" height="491" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">06</span>
-        <h3 class="serif">Рай</h3>
-        <p>Не нужно искать место, где хорошо. <span class="hl">Достаточно знать, что ты где-то рядом.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="7">
-      <figure class="ph"><img src="img/s/07.jpg" alt="Жанель, кадр 7" width="364" height="492" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">07</span>
-        <h3 class="serif">Тишина</h3>
-        <p>Ты смотришь вдаль, а я смотрю на тебя. <span class="hl">Это мой любимый способ быть счастливым.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="8">
-      <figure class="ph"><img src="img/s/08.jpg" alt="Жанель, кадр 8" width="364" height="492" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">08</span>
-        <h3 class="serif">Прямо в меня</h3>
-        <p>У тебя взгляд, от которого не прячутся. <span class="hl">Я и не пытаюсь.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="9">
-      <figure class="ph"><img src="img/s/09.jpg" alt="Жанель, кадр 9" width="364" height="492" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">09</span>
-        <h3 class="serif">Гроза</h3>
-        <p>Ты как гроза, после которой всё дышит. <span class="hl">И мне нравится под ней промокать.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="10">
-      <figure class="ph"><img src="img/s/10.jpg" alt="Жанель, кадр 10" width="364" height="492" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">10</span>
-        <h3 class="serif">Невесомость</h3>
-        <p>С тобой время перестаёт быть врагом. <span class="hl">Оно просто замедляется, чтобы я успел всё запомнить.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="11">
-      <figure class="ph"><img src="img/s/11.jpg" alt="Жанель, кадр 11" width="361" height="489" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">11</span>
-        <h3 class="serif">Дикая</h3>
-        <p>В тебе есть то, что нельзя приручить. <span class="hl">Я и не хочу. Я хочу быть рядом, когда ты сама решишь остаться.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="12">
-      <figure class="ph"><img src="img/s/12.jpg" alt="Жанель, кадр 12" width="361" height="489" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">12</span>
-        <h3 class="serif">Ветер</h3>
-        <p>Ты приходишь как ветер: сначала не веришь, потом не можешь без него. <span class="hl">Я уже не могу.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="13">
-      <figure class="ph"><img src="img/s/13.jpg" alt="Жанель, кадр 13" width="359" height="486" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">13</span>
-        <h3 class="serif">Опора</h3>
-        <p>Ты стоишь так спокойно, будто мир держится на тебе. <span class="hl">Для меня так и есть.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="14">
-      <figure class="ph"><img src="img/s/14.jpg" alt="Жанель, кадр 14" width="360" height="486" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">14</span>
-        <h3 class="serif">Осень</h3>
-        <p>С тобой даже холод становится нежным. <span class="hl">Я учусь греться о твой голос.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="15">
-      <figure class="ph"><img src="img/s/15.jpg" alt="Жанель, кадр 15" width="360" height="486" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">15</span>
-        <h3 class="serif">Тайна</h3>
-        <p>Ты рассказываешь не всё, и в этом вся магия. <span class="hl">Я готов узнавать тебя всю жизнь.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="16">
-      <figure class="ph"><img src="img/s/16.jpg" alt="Жанель, кадр 16" width="359" height="486" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">16</span>
-        <h3 class="serif">Куда угодно</h3>
-        <p>Скажи слово, и я поеду за тобой. <span class="hl">Дорога не важна, важна только ты в конце.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="17">
-      <figure class="ph"><img src="img/s/17.jpg" alt="Жанель, кадр 17" width="360" height="486" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">17</span>
-        <h3 class="serif">Дерзкая</h3>
-        <p>Ты знаешь, что делаешь со мной. <span class="hl">Просто не останавливайся.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="18">
-      <figure class="ph"><img src="img/s/18.jpg" alt="Жанель, кадр 18" width="359" height="486" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">18</span>
-        <h3 class="serif">Старая песня</h3>
-        <p>Ты как мелодия, которую узнаёшь с первой ноты. <span class="hl">И потом уже не можешь отпустить.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="19">
-      <figure class="ph"><img src="img/s/19.jpg" alt="Жанель, кадр 19" width="360" height="486" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">19</span>
-        <h3 class="serif">Закат</h3>
-        <p>Когда ты рядом, я перестаю бояться, что день закончится. <span class="hl">Ведь у меня есть ты.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="20">
-      <figure class="ph"><img src="img/s/20.jpg" alt="Жанель, кадр 20" width="447" height="604" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">20</span>
-        <h3 class="serif">Обернись</h3>
-        <p>Достаточно одного взгляда через плечо. <span class="hl">И я снова забываю дорогу домой.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="21">
-      <figure class="ph"><img src="img/s/21.jpg" alt="Жанель, кадр 21" width="446" height="604" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">21</span>
-        <h3 class="serif">Растворяюсь</h3>
-        <p>Рядом с тобой я растворяюсь, как свет в воде. <span class="hl">И мне нисколько не жаль.</span></p>
-      </div>
-    </article>
-  </div>
-  <div class="chap c3">
-    <header class="ch">
-      <span class="rom" aria-hidden="true">III</span>
-      <h2 class="serif">Город и тихие вечера</h2>
-      <p class="tag">А потом ты просто идёшь по городу, и город замолкает.</p>
-    </header>
-    <article class="scene" data-n="22">
-      <figure class="ph"><img src="img/s/22.jpg" alt="Жанель, кадр 22" width="364" height="492" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">22</span>
-        <h3 class="serif">Тёмный взгляд</h3>
-        <p>Ты улыбаешься едва заметно. <span class="hl">Мне хватает этого на всю ночь.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="23">
-      <figure class="ph"><img src="img/s/23.jpg" alt="Жанель, кадр 23" width="364" height="492" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">23</span>
-        <h3 class="serif">Вечер для двоих</h3>
-        <p>Весь мир давно перестал существовать. <span class="hl">Остались только ты и то, как я на тебя смотрю.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="24">
-      <figure class="ph"><img src="img/s/24.jpg" alt="Жанель, кадр 24" width="364" height="492" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">24</span>
-        <h3 class="serif">Сила</h3>
-        <p>В тебе спокойная сила, от которой хочется стать лучше. <span class="hl">Я стараюсь.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="25">
-      <figure class="ph"><img src="img/s/25.jpg" alt="Жанель, кадр 25" width="364" height="492" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">25</span>
-        <h3 class="serif">Утро</h3>
-        <p>С тобой утро начинается не с кофе, а с мысли о тебе. <span class="hl">И так каждый день.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="26">
-      <figure class="ph"><img src="img/s/26.jpg" alt="Жанель, кадр 26" width="361" height="489" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">26</span>
-        <h3 class="serif">Невозможная</h3>
-        <p>Ты как мечта, которую боишься назвать вслух. <span class="hl">А я называю. Тихо, чтобы никто не услышал.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="27">
-      <figure class="ph"><img src="img/s/27.jpg" alt="Жанель, кадр 27" width="362" height="489" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">27</span>
-        <h3 class="serif">Мы</h3>
-        <p>Мы можем никуда не ехать. <span class="hl">Рядом с тобой я уже там, где хочу быть.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="28">
-      <figure class="ph"><img src="img/s/28.jpg" alt="Жанель, кадр 28" width="362" height="489" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">28</span>
-        <h3 class="serif">Пароль</h3>
-        <p>Ты открываешь двери, которые я считал закрытыми. <span class="hl">Во мне в том числе.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="29">
-      <figure class="ph"><img src="img/s/29.jpg" alt="Жанель, кадр 29" width="361" height="489" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">29</span>
-        <h3 class="serif">Полночь</h3>
-        <p>Холодно, поздно, пусто. <span class="hl">А мне тепло, потому что ты есть.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="30">
-      <figure class="ph"><img src="img/s/30.jpg" alt="Жанель, кадр 30" width="361" height="489" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">30</span>
-        <h3 class="serif">За тобой</h3>
-        <p>Я пошёл бы за тобой хоть всю ночь. <span class="hl">И ни разу не спросил бы, куда.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="31">
-      <figure class="ph"><img src="img/s/31.jpg" alt="Жанель, кадр 31" width="362" height="489" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">31</span>
-        <h3 class="serif">Покой</h3>
-        <p>С тобой я наконец умею ничего не делать. <span class="hl">И это лучшее, что со мной случалось.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="32">
-      <figure class="ph"><img src="img/s/32.jpg" alt="Жанель, кадр 32" width="362" height="489" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">32</span>
-        <h3 class="serif">Не смотри</h3>
-        <p>Ты отводишь взгляд, а я не могу отвести свой. <span class="hl">Кажется, так и должно быть.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="33">
-      <figure class="ph"><img src="img/s/33.jpg" alt="Жанель, кадр 33" width="361" height="489" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">33</span>
-        <h3 class="serif">Стоп</h3>
-        <p>Ты как красный свет: останавливаешь всё вокруг. <span class="hl">И я не жалею ни секунды.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="34">
-      <figure class="ph"><img src="img/s/34.jpg" alt="Жанель, кадр 34" width="359" height="486" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">34</span>
-        <h3 class="serif">Лёгкость</h3>
-        <p>От тебя кружится голова, как от первого вдоха после долгой воды. <span class="hl">Я готов тонуть снова.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="35">
-      <figure class="ph"><img src="img/s/35.jpg" alt="Жанель, кадр 35" width="360" height="486" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">35</span>
-        <h3 class="serif">Алая</h3>
-        <p>Ты горишь так красиво, что я не боюсь обжечься. <span class="hl">Пусть.</span></p>
-      </div>
-    </article>
-    <article class="scene" data-n="36">
-      <figure class="ph"><img src="img/s/36.jpg" alt="Жанель, кадр 36" width="360" height="486" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <span class="no" aria-hidden="true">36</span>
-        <h3 class="serif">Ближе</h3>
-        <p>Ты кажешься далёкой, как первый снег. <span class="hl">Но я иду к тебе, шаг за шагом.</span></p>
-      </div>
-    </article>
-  </div>
-  <section class="fin" id="fin">
-    <p class="eyebrow">Все 36 кадров</p>
-    <p class="fin-l">Если оставить только одно слово на все кадры сразу, то это</p>
-    <div class="fin-w serif" aria-label="ты">ты</div>
+
+  <section class="st-cta" id="stCta">
+    <p class="eyebrow rv">Ещё 18 кадров</p>
+    <h2 class="serif rv" style="--d:.08s">Самое личное <em>в историях</em></h2>
+    <p class="rv" style="--d:.16s">Включи звук и смотри до конца. Там будет сюрприз.</p>
+    <button class="btn primary rv" id="stOpen" type="button" style="--d:.24s;margin-top:10px">Открыть истории</button>
   </section>
+
+  <div id="finale" hidden>
+    <section class="fin" id="fin">
+      <p class="eyebrow">Все 36 кадров</p>
+      <p class="fin-l">Если оставить только одно слово на все кадры сразу, то это</p>
+      <div class="fin-w serif" aria-label="ты">ты</div>
+    </section>
 
   <section class="chapter" id="invite">
     <p class="eyebrow rv">Свидание</p>
@@ -684,6 +471,7 @@ html.lock, html.lock body { overflow: hidden; }
   <footer>
     <p>С любопытством, <strong>Руслан</strong>. Если ты не хочешь продолжать, просто закрой страницу. Я пойму.</p>
   </footer>
+  </div>
 </div>
 </main>
 
@@ -811,6 +599,7 @@ html.lock, html.lock body { overflow: hidden; }
       setTimeout(function () { fade.classList.add("on"); }, lead * 1000 + Math.max(0, jd * 1000 - 950));   /* fully dark exactly when the original starts */
       setTimeout(function () {
         shout.hidden = true; unlockSite();
+        var ri = document.getElementById("ringImg"); ri.src = "img/s/22.jpg"; ri.style.objectPosition = "50% 32%";   /* new circle photo for the original version */
         var h1 = document.getElementById("typed"); if (REDUCED) h1.textContent = "Привет, Жанель."; else typeInto(h1, "Привет, Жанель.");
         fade.style.transitionDuration = "1.6s";
         fade.classList.remove("on");
@@ -847,19 +636,68 @@ html.lock, html.lock body { overflow: hidden; }
   });
 
 
-  /* ---------- story: reveal each frame, keep the counter ---------- */
+  /* ---------- memory wall: reveal, lightbox ---------- */
+  var WALL = [{"n": 4, "f": "img/s/04.jpg", "t": "Тепло", "a": "Рядом с тобой даже молчание звучит как признание.", "b": "Я слушаю его часами."}, {"n": 5, "f": "img/s/05.jpg", "t": "Мой свет", "a": "Ты делаешь любой день золотым, сама того не замечая.", "b": "А я замечаю каждый раз."}, {"n": 6, "f": "img/s/06.jpg", "t": "Рай", "a": "Не нужно искать место, где хорошо.", "b": "Достаточно знать, что ты где-то рядом."}, {"n": 7, "f": "img/s/07.jpg", "t": "Тишина", "a": "Ты смотришь вдаль, а я смотрю на тебя.", "b": "Это мой любимый способ быть счастливым."}, {"n": 8, "f": "img/s/08.jpg", "t": "Прямо в меня", "a": "У тебя взгляд, от которого не прячутся.", "b": "Я и не пытаюсь."}, {"n": 9, "f": "img/s/09.jpg", "t": "Гроза", "a": "Ты как гроза, после которой всё дышит.", "b": "И мне нравится под ней промокать."}, {"n": 10, "f": "img/s/10.jpg", "t": "Невесомость", "a": "С тобой время перестаёт быть врагом.", "b": "Оно просто замедляется, чтобы я успел всё запомнить."}, {"n": 11, "f": "img/s/11.jpg", "t": "Дикая", "a": "В тебе есть то, что нельзя приручить.", "b": "Я и не хочу. Я хочу быть рядом, когда ты сама решишь остаться."}, {"n": 12, "f": "img/s/12.jpg", "t": "Ветер", "a": "Ты приходишь как ветер: сначала не веришь, потом не можешь без него.", "b": "Я уже не могу."}, {"n": 13, "f": "img/s/13.jpg", "t": "Опора", "a": "Ты стоишь так спокойно, будто мир держится на тебе.", "b": "Для меня так и есть."}, {"n": 14, "f": "img/s/14.jpg", "t": "Осень", "a": "С тобой даже холод становится нежным.", "b": "Я учусь греться о твой голос."}, {"n": 15, "f": "img/s/15.jpg", "t": "Тайна", "a": "Ты рассказываешь не всё, и в этом вся магия.", "b": "Я готов узнавать тебя всю жизнь."}, {"n": 16, "f": "img/s/16.jpg", "t": "Куда угодно", "a": "Скажи слово, и я поеду за тобой.", "b": "Дорога не важна, важна только ты в конце."}, {"n": 17, "f": "img/s/17.jpg", "t": "Дерзкая", "a": "Ты знаешь, что делаешь со мной.", "b": "Просто не останавливайся."}, {"n": 18, "f": "img/s/18.jpg", "t": "Старая песня", "a": "Ты как мелодия, которую узнаёшь с первой ноты.", "b": "И потом уже не можешь отпустить."}, {"n": 19, "f": "img/s/19.jpg", "t": "Закат", "a": "Когда ты рядом, я перестаю бояться, что день закончится.", "b": "Ведь у меня есть ты."}, {"n": 20, "f": "img/s/20.jpg", "t": "Обернись", "a": "Достаточно одного взгляда через плечо.", "b": "И я снова забываю дорогу домой."}, {"n": 21, "f": "img/s/21.jpg", "t": "Растворяюсь", "a": "Рядом с тобой я растворяюсь, как свет в воде.", "b": "И мне нисколько не жаль."}];
+  var STORY = [{"n": 1, "f": "img/s/01.jpg", "t": "Первый вдох", "a": "Я увидел тебя, и внутри стало тихо.", "b": "Как будто всё это время я просто ждал."}, {"n": 2, "f": "img/s/02.jpg", "t": "Не страшно", "a": "С тобой страшно и хорошо одновременно.", "b": "Я выбираю это каждый раз."}, {"n": 3, "f": "img/s/03.jpg", "t": "Всё остальное фон", "a": "Ты оборачиваешься, и мир гаснет сам.", "b": "Мне больше ничего не нужно видеть."}, {"n": 22, "f": "img/s/22.jpg", "t": "Тёмный взгляд", "a": "Ты улыбаешься едва заметно.", "b": "Мне хватает этого на всю ночь."}, {"n": 23, "f": "img/s/23.jpg", "t": "Вечер для двоих", "a": "Весь мир давно перестал существовать.", "b": "Остались только ты и то, как я на тебя смотрю."}, {"n": 24, "f": "img/s/24.jpg", "t": "Сила", "a": "В тебе спокойная сила, от которой хочется стать лучше.", "b": "Я стараюсь."}, {"n": 25, "f": "img/s/25.jpg", "t": "Утро", "a": "С тобой утро начинается не с кофе, а с мысли о тебе.", "b": "И так каждый день."}, {"n": 26, "f": "img/s/26.jpg", "t": "Невозможная", "a": "Ты как мечта, которую боишься назвать вслух.", "b": "А я называю. Тихо, чтобы никто не услышал."}, {"n": 27, "f": "img/s/27.jpg", "t": "Мы", "a": "Мы можем никуда не ехать.", "b": "Рядом с тобой я уже там, где хочу быть."}, {"n": 28, "f": "img/s/28.jpg", "t": "Пароль", "a": "Ты открываешь двери, которые я считал закрытыми.", "b": "Во мне в том числе."}, {"n": 29, "f": "img/s/29.jpg", "t": "Полночь", "a": "Холодно, поздно, пусто.", "b": "А мне тепло, потому что ты есть."}, {"n": 30, "f": "img/s/30.jpg", "t": "За тобой", "a": "Я пошёл бы за тобой хоть всю ночь.", "b": "И ни разу не спросил бы, куда."}, {"n": 31, "f": "img/s/31.jpg", "t": "Покой", "a": "С тобой я наконец умею ничего не делать.", "b": "И это лучшее, что со мной случалось."}, {"n": 32, "f": "img/s/32.jpg", "t": "Не смотри", "a": "Ты отводишь взгляд, а я не могу отвести свой.", "b": "Кажется, так и должно быть."}, {"n": 33, "f": "img/s/33.jpg", "t": "Стоп", "a": "Ты как красный свет: останавливаешь всё вокруг.", "b": "И я не жалею ни секунды."}, {"n": 34, "f": "img/s/34.jpg", "t": "Лёгкость", "a": "От тебя кружится голова, как от первого вдоха после долгой воды.", "b": "Я готов тонуть снова."}, {"n": 35, "f": "img/s/35.jpg", "t": "Алая", "a": "Ты горишь так красиво, что я не боюсь обжечься.", "b": "Пусть."}, {"n": 36, "f": "img/s/36.jpg", "t": "Ближе", "a": "Ты кажешься далёкой, как первый снег.", "b": "Но я иду к тебе, шаг за шагом."}];
   (function () {
-    var scenes = [].slice.call(document.querySelectorAll(".scene")), heads = [].slice.call(document.querySelectorAll(".ch, .fin"));
-    var counter = document.getElementById("counter"), cur = counter.querySelector("span"), total = scenes.length;
-    if (!("IntersectionObserver" in window)) { scenes.concat(heads).forEach(function (e) { e.classList.add("in"); }); return; }
-    var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }); }, { threshold: 0.18 });
-    scenes.concat(heads).forEach(function (e) { io.observe(e); });
-    var mid = new IntersectionObserver(function (en) {
-      en.forEach(function (x) { if (x.isIntersecting) { var n = +x.target.dataset.n; cur.textContent = (n < 10 ? "0" : "") + n + " / " + total; counter.style.setProperty("--pr", n / total); } });
-    }, { rootMargin: "-45% 0px -45% 0px" });
-    scenes.forEach(function (e) { mid.observe(e); });
-    var area = new IntersectionObserver(function (en) { en.forEach(function (x) { counter.classList.toggle("on", x.isIntersecting); }); }, { rootMargin: "-20% 0px -20% 0px" });
-    document.querySelectorAll(".chap").forEach(function (e) { area.observe(e); });
+    var pol = [].slice.call(document.querySelectorAll(".pola")), fin = document.getElementById("fin");
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }); }, { threshold: 0.12 });
+      pol.forEach(function (e) { io.observe(e); }); io.observe(fin);
+    } else { pol.forEach(function (e) { e.classList.add("in"); }); fin.classList.add("in"); }
+    var lb = document.getElementById("lb"), li = 0, root = document.documentElement;
+    function lshow(i) {
+      li = (i + WALL.length) % WALL.length; var p = WALL[li];
+      var im = document.getElementById("lbImg"); im.src = p.f; im.alt = "Жанель, кадр " + p.n;
+      document.getElementById("lbT").textContent = p.t; document.getElementById("lbA").textContent = p.a; document.getElementById("lbB").textContent = p.b;
+    }
+    function lopen(i) { lshow(i); lb.hidden = false; root.classList.add("lock"); document.getElementById("lbX").focus(); }
+    function lclose() { lb.hidden = true; if (st.hidden) root.classList.remove("lock"); }
+    pol.forEach(function (e) { e.addEventListener("click", function () { lopen(+e.dataset.i); }); });
+    document.getElementById("lbX").addEventListener("click", lclose);
+    document.getElementById("lbP").addEventListener("click", function (e) { e.stopPropagation(); lshow(li - 1); });
+    document.getElementById("lbF").addEventListener("click", function (e) { e.stopPropagation(); lshow(li + 1); });
+    lb.addEventListener("click", function (e) { if (e.target === lb) lclose(); });
+    var tx = 0;
+    lb.addEventListener("touchstart", function (e) { tx = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener("touchend", function (e) { var d = e.changedTouches[0].clientX - tx; if (Math.abs(d) > 45) lshow(li + (d < 0 ? 1 : -1)); }, { passive: true });
+    document.addEventListener("keydown", function (e) {
+      if (!lb.hidden) { if (e.key === "Escape") lclose(); else if (e.key === "ArrowRight") lshow(li + 1); else if (e.key === "ArrowLeft") lshow(li - 1); }
+      else if (!st.hidden) { if (e.key === "Escape") sfinish(); else if (e.key === "ArrowRight") snext(); else if (e.key === "ArrowLeft") sprev(); }
+    });
+    /* ---------- stories ---------- */
+    var st = document.getElementById("st"), bars = document.getElementById("stBars"), si = 0, DUR = 6, sdone = false;
+    STORY.forEach(function () { var i = document.createElement("i"); i.innerHTML = "<b></b>"; bars.appendChild(i); });
+    function sshow(i) {
+      si = i; var p = STORY[i];
+      [].forEach.call(bars.children, function (b, k) { b.className = k < i ? "done" : (k === i ? "cur" : ""); b.style.setProperty("--dur", DUR + "s"); });
+      var im = document.getElementById("stImg"); im.style.animation = "none"; void im.offsetWidth; im.style.animation = ""; im.src = p.f; im.alt = "Жанель, кадр " + p.n;
+      document.getElementById("stBg").style.backgroundImage = "url(" + p.f + ")";
+      document.getElementById("stT").textContent = p.t; document.getElementById("stA").textContent = p.a; document.getElementById("stB").textContent = p.b;
+      var tt = st.querySelector(".st-tx"); tt.style.animation = "none"; void tt.offsetWidth; tt.style.animation = "";
+    }
+    function snext() { if (si + 1 >= STORY.length) sfinish(); else sshow(si + 1); }
+    function sprev() { sshow(Math.max(0, si - 1)); }
+    bars.addEventListener("animationend", function (e) { if (e.target.parentNode.classList.contains("cur")) snext(); });
+    var hold = null, held = false;
+    var hit = document.getElementById("stHit");
+    hit.addEventListener("pointerdown", function () { held = false; hold = setTimeout(function () { held = true; st.classList.add("paused"); }, 220); });
+    function release(e) { clearTimeout(hold); st.classList.remove("paused"); }
+    hit.addEventListener("pointerup", function (e) { release(); if (held) return; var r = hit.getBoundingClientRect(); if (e.clientX - r.left < r.width * 0.35) sprev(); else snext(); });
+    hit.addEventListener("pointerleave", release); hit.addEventListener("pointercancel", release);
+    function sfinish() {
+      if (sdone) return; sdone = true;
+      var fade = document.getElementById("fade"); fade.classList.add("on");
+      setTimeout(function () {
+        st.hidden = true; root.classList.remove("lock");
+        var f = document.getElementById("finale"); f.hidden = false; f.scrollIntoView(); window.scrollBy(0, -0);
+        setTimeout(function () { fade.classList.remove("on"); }, 250);
+      }, 950);
+    }
+    document.getElementById("stX").addEventListener("click", sfinish);
+    document.getElementById("stOpen").addEventListener("click", function () {
+      sdone = false; st.hidden = false; root.classList.add("lock"); sshow(0);
+    });
   })();
 
   /* ---------- scroll reveal + parallax ---------- */
