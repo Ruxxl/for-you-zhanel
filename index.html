@@ -150,13 +150,18 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
   background: repeating-linear-gradient(0deg, rgba(255,255,255,.5) 0 1px, transparent 1px 3px); }
 h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.5), -2px 0 rgba(232, 17, 45, 0.5); }
 
-/* ---------- framed concert video ---------- */
-.live-frame { position: relative; width: min(78vw, 340px, calc(54svh * 464 / 848)); aspect-ratio: 464 / 848; margin: 8px 0 28px; padding: 8px; border-radius: 30px; background: linear-gradient(160deg, var(--gold), var(--red-deep) 55%, var(--red)); box-shadow: 0 0 60px rgba(232, 17, 45, 0.35), 0 0 90px rgba(110, 168, 255, 0.18); animation: glow 3.6s ease-in-out infinite; }
-.live-frame video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 23px; background: #000; }
-.live-cap { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: clamp(26px, 6.5vw, 44px); line-height: 1.05; margin: 0; text-shadow: 0 0 24px rgba(232, 17, 45, 0.55); }
+/* ---------- full-screen concert video (page one) ---------- */
+.stage { position: fixed; inset: 0; z-index: 5; display: block; padding: 0; background: #000; }
+.live-frame { position: absolute; inset: 0; margin: 0; overflow: hidden; box-shadow: inset 0 0 0 3px rgba(232, 17, 45, 0.55), inset 0 0 70px rgba(110, 168, 255, 0.25); }
+.live-frame video { display: block; width: 100%; height: 100%; object-fit: cover; background: #000; }
+@media (min-aspect-ratio: 1/1) { .live-frame { inset: 0 auto 0 50%; width: calc(100svh * 464 / 848); translate: -50% 0; } }
+.live-top { position: absolute; z-index: 2; top: max(18px, env(safe-area-inset-top, 0px)); left: 0; right: 0; text-align: center; margin: 0; text-shadow: 0 0 12px #000; pointer-events: none; }
+.live-cap { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; margin: 0 auto; padding: 90px 20px max(34px, env(safe-area-inset-bottom, 0px)); max-width: none; text-align: center; pointer-events: none;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85)); font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: clamp(26px, 7.5vw, 44px); line-height: 1.05; text-shadow: 0 0 24px rgba(232, 17, 45, 0.6); }
+.live-play { position: absolute; z-index: 3; left: 50%; top: 50%; translate: -50% -50%; width: 84px; height: 84px; border-radius: 50%; border: 0; cursor: pointer; background: rgba(232, 17, 45, 0.9); color: #fff; font-size: 34px; padding-left: 6px; animation: ping 2.2s ease-out infinite; }
+.live-play[hidden] { display: none; }
 
 [hidden] { display: none !important; }
-.stage { min-height: 100svh; padding-block: 24px; justify-content: center; }
 .fade { position: fixed; inset: 0; z-index: 90; background: #000; opacity: 0; pointer-events: none; transition: opacity 0.9s ease; }
 .fade.on { opacity: 1; pointer-events: auto; }
 
@@ -196,12 +201,13 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
 <audio id="bgm" src="die-for-you.m4a" loop preload="none"></audio>
 
 <main class="wrap">
-  <section class="chapter stage" id="live">
-    <p class="eyebrow rv">Для тебя</p>
-    <div class="live-frame rv">
-      <video id="liveVideo" src="intro.mp4?v=3" controls playsinline preload="auto" poster="img/portrait.jpg" controlslist="nodownload noremoteplayback"></video>
+  <section class="stage" id="live">
+    <p class="eyebrow live-top">Для тебя</p>
+    <div class="live-frame">
+      <video id="liveVideo" src="intro.mp4?v=3" playsinline webkit-playsinline preload="auto" poster="img/portrait.jpg" disablepictureinpicture disableremoteplayback></video>
     </div>
-    <p class="live-cap rv" style="--d:.1s">Я бы умер за тебя</p>
+    <p class="live-cap">Я бы умер за тебя</p>
+    <button class="live-play" id="livePlay" type="button" aria-label="Включить видео" hidden>&#9654;</button>
   </section>
 
 <div id="site" hidden>
@@ -360,7 +366,7 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
     /* start the clip inside this tap so Safari/iOS allow its sound */
     lv.muted = false; lv.volume = 1; lv.currentTime = 0;
     var vp = lv.play();
-    if (vp && vp.catch) vp.catch(function () { /* blocked: she can press play on the frame */ });
+    if (vp && vp.catch) vp.catch(function () { lp.hidden = false; });
     /* unlock the song silently in the same tap; it comes back when the clip ends */
     bgm.muted = true; var u = bgm.play(); if (u && u.then) u.then(function () { bgm.pause(); bgm.currentTime = 0; }, function () {});
     gate.classList.add("out");
@@ -368,6 +374,10 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
     var e = document.getElementById("enter").getBoundingClientRect(); burst(e.left + e.width / 2, e.top + e.height / 2, 30);
   });
   /* page 1 (the clip) -> fade through black -> page 2 (the site) */
+  var lp = document.getElementById("livePlay");
+  lp.addEventListener("click", function () { lv.muted = false; lv.play(); });
+  lv.addEventListener("pause", function () { if (!lv.ended && !moved) lp.hidden = false; });
+  lv.addEventListener("playing", function () { lp.hidden = true; });
   var fade = document.getElementById("fade"), site = document.getElementById("site"), stage = document.getElementById("live"), moved = false;
   function nextPage() {
     if (moved) return; moved = true; lv.pause();
