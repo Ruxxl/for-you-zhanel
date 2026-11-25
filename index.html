@@ -16,6 +16,9 @@
 <meta name="twitter:image" content="https://ruxxl.github.io/for-you-zhanel/img/og.jpg">
 <title>Для Жанель</title>
 <link rel="preload" as="image" href="img/hero-red.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&display=swap">
 <script>document.documentElement.classList.add("js");</script>
 <style>
 /* Layout: a scroll-story in four chapters (meeting, her eyes, her stories, the invitation) over a night sky of drifting hearts. */
@@ -202,6 +205,62 @@ h1 { text-shadow: 0 0 32px rgba(232, 17, 45, 0.6); }
 .unlock .later { opacity: 1; }
 html.lock, html.lock body { overflow: hidden; }
 
+
+/* ---------- the story: 36 frames, romantic ---------- */
+.serif { font-family: "Cormorant Garamond", "Iowan Old Style", Georgia, "Times New Roman", serif; font-style: italic; font-weight: 600; letter-spacing: -0.01em; }
+.story-open { min-height: 92svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-block: 90px 40px; }
+.story-open h2 { font-size: clamp(46px, 13vw, 96px); line-height: 0.98; margin: 0 0 22px; }
+.story-open .epi { max-width: 30ch; color: var(--ink-soft); font-size: 18px; margin-inline: auto; }
+.cue { display: block; width: 1px; height: 64px; margin-top: 26px; background: linear-gradient(var(--red), transparent); animation: drip 2s ease-in-out infinite; }
+.chap { position: relative; isolation: isolate; --w1: rgba(232, 17, 45, 0.20); --w2: rgba(110, 168, 255, 0.14); }
+.chap.c2 { --w1: rgba(255, 168, 70, 0.17); --w2: rgba(255, 70, 110, 0.15); }
+.chap.c3 { --w1: rgba(190, 90, 255, 0.15); --w2: rgba(255, 70, 110, 0.18); }
+.chap::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; filter: blur(30px);
+  background: radial-gradient(70% 9% at 8% 12%, var(--w1), transparent), radial-gradient(70% 9% at 95% 38%, var(--w2), transparent), radial-gradient(70% 9% at 5% 66%, var(--w1), transparent), radial-gradient(70% 9% at 95% 92%, var(--w2), transparent); }
+.ch { min-height: 78svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-block: 60px; }
+.rom { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; font-size: clamp(90px, 30vw, 220px); line-height: 0.9; color: transparent; -webkit-text-stroke: 1px rgba(245, 236, 230, 0.4); margin-bottom: 10px; }
+.ch h2 { font-size: clamp(40px, 11vw, 78px); line-height: 1; margin: 0 0 14px; }
+.tag { max-width: 26ch; color: var(--ink-soft); font-size: 18px; margin-inline: auto; }
+.scene { display: grid; gap: 22px; padding-block: 44px; align-items: center; }
+.ph { position: relative; margin: 0; width: min(84%, 400px); border-radius: 22px; overflow: hidden; background: #120a0e;
+  box-shadow: 0 34px 80px -24px rgba(232, 17, 45, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.09), inset 0 0 0 1px rgba(255, 255, 255, 0.04); }
+.ph img { display: block; width: 100%; height: auto; }
+.ph::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 60%, rgba(5, 5, 9, 0.35)); }
+.scene:nth-of-type(odd) .ph { justify-self: start; rotate: -1.4deg; }
+.scene:nth-of-type(even) .ph { justify-self: end; rotate: 1.4deg; }
+.tx { position: relative; max-width: 36ch; }
+.scene:nth-of-type(even) .tx { justify-self: start; }
+.no { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; font-size: 58px; line-height: 0.8; color: rgba(232, 17, 45, 0.6); margin-bottom: 6px; }
+.tx h3 { font-size: clamp(30px, 8vw, 40px); line-height: 1.02; margin: 0 0 12px; }
+.tx p { margin: 0; font-size: 17px; line-height: 1.7; color: var(--ink-soft); }
+.tx .hl { display: block; margin-top: 10px; font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 600; font-size: clamp(23px, 6vw, 28px); line-height: 1.25; color: var(--ink); text-shadow: 0 0 26px rgba(232, 17, 45, 0.35); }
+@media (min-width: 860px) {
+  .scene { grid-template-columns: 1fr 1fr; gap: 64px; padding-block: 70px; }
+  .ph { width: 100%; max-width: 380px; }
+  .scene:nth-of-type(odd) .ph { justify-self: end; }
+  .scene:nth-of-type(even) .ph { justify-self: start; order: 2; }
+  .scene:nth-of-type(even) .tx { order: 1; justify-self: end; text-align: right; }
+  .scene:nth-of-type(odd) .tx { justify-self: start; }
+}
+.fin { min-height: 90svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-block: 80px; }
+.fin-l { max-width: 24ch; font-size: clamp(20px, 5vw, 26px); color: var(--ink-soft); margin: 0 auto 10px; }
+.fin-w { font-size: clamp(150px, 46vw, 340px); line-height: 0.9; padding-bottom: 0.08em; background: linear-gradient(160deg, #ff7088, var(--red) 55%, var(--red-deep)); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 40px rgba(232, 17, 45, 0.55)); animation: beat 2.6s ease-in-out infinite; }
+.counter { position: fixed; z-index: 40; left: max(16px, env(safe-area-inset-left, 0px)); bottom: max(18px, env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; gap: 10px; font-size: 13px; letter-spacing: 0.14em; color: var(--ink-soft); opacity: 0; transition: opacity 0.5s; pointer-events: none; }
+.counter.on { opacity: 1; }
+.counter i { display: block; width: 54px; height: 2px; background: rgba(255, 255, 255, 0.15); border-radius: 2px; overflow: hidden; }
+.counter b { display: block; height: 100%; width: calc(var(--pr, 0) * 100%); background: var(--red); transition: width 0.5s; }
+.js .scene .ph { clip-path: inset(0 0 100% 0 round 22px); transition: clip-path 1.2s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.js .scene .ph img { transform: scale(1.14); transition: transform 1.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.js .scene .tx > * { opacity: 0; transform: translateY(22px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.js .scene .tx > :nth-child(2) { transition-delay: 0.12s; } .js .scene .tx > :nth-child(3) { transition-delay: 0.26s; }
+.js .scene.in .ph { clip-path: inset(0 0 0 0 round 22px); }
+.js .scene.in .ph img { transform: none; }
+.js .scene.in .tx > * { opacity: 1; transform: none; }
+.js .ch > *, .js .fin > * { opacity: 0; transform: translateY(26px); transition: opacity 1s ease, transform 1s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.js .ch > :nth-child(2), .js .fin > :nth-child(2) { transition-delay: 0.15s; } .js .ch > :nth-child(3), .js .fin > :nth-child(3) { transition-delay: 0.3s; }
+.js .ch.in > *, .js .fin.in > * { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .js .scene .ph, .js .scene .ph img, .js .scene .tx > *, .js .ch > *, .js .fin > * { clip-path: none; opacity: 1; transform: none; transition: none; } }
+
 /* ---------- motion ---------- */
 .js .rv { opacity: 0; transform: translateY(34px) scale(0.97); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: var(--d, 0s); }
 .js .rv.in { opacity: 1; transform: none; }
@@ -248,6 +307,7 @@ html.lock, html.lock body { overflow: hidden; }
 </div>
 <button class="btn quiet sound" id="sound" type="button" aria-pressed="true" hidden>Звук: вкл</button>
 <div class="shout" id="shout" hidden aria-live="polite"><span>Шучу.</span><span>Теперь серьёзно.</span></div>
+<div class="counter" id="counter" aria-hidden="true"><span>01 / 36</span><i><b></b></i></div>
 <div class="fade" id="fade"></div>
 
 <main class="wrap">
@@ -267,42 +327,329 @@ html.lock, html.lock body { overflow: hidden; }
     <h1 id="typed" data-text="Уважаемая Жанель.">Уважаемая Жанель.</h1>
     <p class="joke" id="jokeLine" aria-live="polite"></p>
     <p class="sub later">Меня зовут Руслан. Я сделал для тебя маленькое кино про тебя.</p>
-    <a class="scroll later" href="#eyes">Листай вниз</a>
+    <a class="scroll later" href="#story">Листай вниз</a>
   </header>
 
 
-  <section class="chapter" id="eyes">
-    <p class="eyebrow rv">Взгляд</p>
-    <figure class="eye-photo rv" style="margin-inline:auto" data-p="0.05">
-      <img src="img/petronas.jpg" alt="Жанель ночью у башен Петронас" width="534" height="954" loading="lazy">
-    </figure>
-    <h2 class="rv">У тебя очень красивые <em>глаза</em></h2>
-    <p class="rv" style="--d:.1s">Тёмные, внимательные, с лёгкой хитринкой. Я смотрел на этот кадр и забыл, что за твоей спиной башни Петронас.</p>
-    <div class="song rv" style="--d:.15s">
-      <i></i><i></i><i></i>
-      <p class="t">Blinding Lights</p>
-      <p class="by">The Weeknd</p>
-    </div>
-    <p class="rv" style="margin-top:20px">Пока я смотрел твои фото, в голове играла именно она. Сначала думал, что из-за концерта. Оказалось, из-за твоего взгляда.</p>
+  <section class="story-open" id="story">
+    <p class="eyebrow rv">36 кадров · одна ты</p>
+    <h2 class="serif rv" style="--d:.1s">Какой я тебя <em>вижу</em></h2>
+    <p class="epi rv" style="--d:.2s">Играет «Die For You». Свет приглушён, город не спит, а я листаю тебя кадр за кадром.</p>
+    <span class="cue rv" style="--d:.35s" aria-hidden="true"></span>
   </section>
-
-  <section class="chapter" id="stories">
-    <p class="eyebrow rv">Твои истории</p>
-    <h2 class="rv">Я посмотрел, <em>как ты живёшь</em></h2>
-    <div class="reel">
-      <figure class="polaroid rv" style="--r:-4deg;--d:0s"><img src="img/statue.jpg" alt="Концерт The Weeknd" loading="lazy"><figcaption>Концерт The Weeknd</figcaption></figure>
-      <figure class="polaroid rv" style="--r:3deg;--d:.12s"><img src="img/dior.jpg" alt="Золотой фасад Dior" loading="lazy"><figcaption>Золото Dior</figcaption></figure>
-      <figure class="polaroid rv" style="--r:-2deg;--d:.24s"><img src="img/street.jpg" alt="Ночной город" loading="lazy"><figcaption>Огни ночного города</figcaption></figure>
-      <figure class="polaroid rv" style="--r:4deg;--d:0s"><img src="img/cap.jpg" alt="Осенний лес" loading="lazy"><figcaption>Берёзы и ты</figcaption></figure>
-      <figure class="polaroid rv" style="--r:-3deg;--d:.12s"><img src="img/leaves.jpg" alt="Осенние листья" loading="lazy"><figcaption>Осень под ногами</figcaption></figure>
-      <figure class="polaroid rv" style="--r:2deg;--d:.24s"><img src="img/fire.jpg" alt="Огонь в печи" loading="lazy"><figcaption>Огонь и тишина</figcaption></figure>
-    </div>
-    <div class="lines">
-      <p class="rv">Ты умеешь громко.<small>Концерт, дым, красный свет.</small></p>
-      <p class="rv">И умеешь тихо.<small>Берёзы, листья, огонь в печи.</small></p>
-      <p class="rv">И везде получается <em>красиво.</em></p>
-      <p class="rv">Поэтому я не смог пройти мимо.</p>
-    </div>
+  <div class="chap c1">
+    <header class="ch">
+      <span class="rom" aria-hidden="true">I</span>
+      <h2 class="serif">Неон и ночь</h2>
+      <p class="tag">Когда гаснет день, ты становишься ярче.</p>
+    </header>
+    <article class="scene" data-n="1">
+      <figure class="ph"><img src="img/s/01.jpg" alt="Коридор" width="362" height="493" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">01</span>
+        <h3 class="serif">Коридор</h3>
+        <p>Чёрный пиджак, тёмные очки, каждый шаг медленный и уверенный. <span class="hl">Ты идёшь так, будто коридор построили только ради этого кадра.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="2">
+      <figure class="ph"><img src="img/s/02.jpg" alt="Красная комната" width="363" height="491" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">02</span>
+        <h3 class="serif">Красная комната</h3>
+        <p>Красный свет залил стены, ты стоишь в нём в чёрном, как огонь на дне ночи. <span class="hl">Подойти страшно и невозможно не подойти.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="3">
+      <figure class="ph"><img src="img/s/03.jpg" alt="Огни на воде" width="363" height="491" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">03</span>
+        <h3 class="serif">Огни на воде</h3>
+        <p>Колесо обозрения горит над водой, и неон тянется по волнам. <span class="hl">Ты смотришь через плечо, и весь город вдруг становится твоим фоном.</span></p>
+      </div>
+    </article>
+  </div>
+  <div class="chap c2">
+    <header class="ch">
+      <span class="rom" aria-hidden="true">II</span>
+      <h2 class="serif">Закат и золото</h2>
+      <p class="tag">Там, где тепло, мне хочется остановить время.</p>
+    </header>
+    <article class="scene" data-n="4">
+      <figure class="ph"><img src="img/s/04.jpg" alt="Вечерний пляж" width="363" height="493" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">04</span>
+        <h3 class="serif">Вечерний пляж</h3>
+        <p>Соломенная шляпа, море замирает, на камнях гаснет последний свет. <span class="hl">Ты спиной ко мне, но я чувствую, что ты улыбаешься.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="5">
+      <figure class="ph"><img src="img/s/05.jpg" alt="Рождество" width="363" height="493" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">05</span>
+        <h3 class="serif">Рождество</h3>
+        <p>Тысячи огоньков и тёплая шуба, мороз и румянец. <span class="hl">Хочется спрятать твои руки в свои и никуда не идти.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="6">
+      <figure class="ph"><img src="img/s/06.jpg" alt="Рисовые террасы" width="363" height="491" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">06</span>
+        <h3 class="serif">Рисовые террасы</h3>
+        <p>Бали, зелёные ступени до самого неба и бирюзовый бассейн на краю мира. <span class="hl">Рай существует, и в нём ты на бортике, босая и счастливая.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="7">
+      <figure class="ph"><img src="img/s/07.jpg" alt="Лувр на рассвете" width="364" height="492" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">07</span>
+        <h3 class="serif">Лувр на рассвете</h3>
+        <p>Белые стены, вода и бесконечное небо. <span class="hl">Ты смотришь в горизонт, а я смотрю на тебя, и это самое красивое искусство здесь.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="8">
+      <figure class="ph"><img src="img/s/08.jpg" alt="Песок и небоскрёбы" width="364" height="492" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">08</span>
+        <h3 class="serif">Песок и небоскрёбы</h3>
+        <p>Шляпа, очки, рука в волосах и солнце на плечах. <span class="hl">Ты смотришь прямо в камеру и в меня.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="9">
+      <figure class="ph"><img src="img/s/09.jpg" alt="Пещеры и радуга" width="364" height="492" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">09</span>
+        <h3 class="serif">Пещеры и радуга</h3>
+        <p>Золотой гигант за спиной, мокрая брусчатка и радужный зонт. <span class="hl">Дождь пришёл, чтобы ты стала ещё ярче.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="10">
+      <figure class="ph"><img src="img/s/10.jpg" alt="Жёлтый матрас" width="364" height="492" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">10</span>
+        <h3 class="serif">Жёлтый матрас</h3>
+        <p>Бассейн, пальмы, ленивый полдень. <span class="hl">Ты лежишь на воде, как на облаке, и время перестаёт идти.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="11">
+      <figure class="ph"><img src="img/s/11.jpg" alt="Тропики" width="361" height="489" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">11</span>
+        <h3 class="serif">Тропики</h3>
+        <p>Банановые листья, зелёная тень и очки на лице. <span class="hl">Ты как та, кого не нашли дикие джунгли, потому что она сама была их сердцем.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="12">
+      <figure class="ph"><img src="img/s/12.jpg" alt="Босфор" width="361" height="489" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">12</span>
+        <h3 class="serif">Босфор</h3>
+        <p>Мосты вдали, ветер с пролива, белые кеды у самой воды. <span class="hl">Стамбул красив, но ты красивее.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="13">
+      <figure class="ph"><img src="img/s/13.jpg" alt="Золотые колонны" width="359" height="486" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">13</span>
+        <h3 class="serif">Золотые колонны</h3>
+        <p>Гигантские колонны, тёплый свет, кожаная куртка. <span class="hl">Ты стоишь так, будто они держат небо только ради тебя.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="14">
+      <figure class="ph"><img src="img/s/14.jpg" alt="Камыши" width="360" height="486" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">14</span>
+        <h3 class="serif">Камыши</h3>
+        <p>Золотая трава, синее небо, бежевый пуховик и кепка. <span class="hl">Осень пахнет тобой и тёплым ветром.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="15">
+      <figure class="ph"><img src="img/s/15.jpg" alt="Тренч" width="360" height="486" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">15</span>
+        <h3 class="serif">Тренч</h3>
+        <p>Кепка, длинный тренч, закатная тень на стене. <span class="hl">Спокойный взгляд и тайна в каждом движении.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="16">
+      <figure class="ph"><img src="img/s/16.jpg" alt="Горная дорога" width="359" height="486" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">16</span>
+        <h3 class="serif">Горная дорога</h3>
+        <p>Асфальт теряется в зелёных склонах, а ты стоишь посреди, подняв руку к кепке. <span class="hl">Хочется ехать за тобой куда угодно.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="17">
+      <figure class="ph"><img src="img/s/17.jpg" alt="Красный купальник" width="360" height="486" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">17</span>
+        <h3 class="serif">Красный купальник</h3>
+        <p>Зелень, жара, красный на загорелой коже. <span class="hl">Яркий, дерзкий, летний, и совсем не хочется, чтобы лето кончалось.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="18">
+      <figure class="ph"><img src="img/s/18.jpg" alt="Розы" width="359" height="486" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">18</span>
+        <h3 class="serif">Розы</h3>
+        <p>Терраса в цветах, белые кеды и лёгкий голубой топ. <span class="hl">Ты как строчка из старой любовной песни, которую помнишь вечно.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="19">
+      <figure class="ph"><img src="img/s/19.jpg" alt="Горы на закате" width="360" height="486" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">19</span>
+        <h3 class="serif">Горы на закате</h3>
+        <p>Камуфляжный бомбер, розовеющие вершины за спиной. <span class="hl">Свет скользит по лицу, и мир на секунду замолкает.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="20">
+      <figure class="ph"><img src="img/s/20.jpg" alt="Дубай, ожидание" width="447" height="604" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">20</span>
+        <h3 class="serif">Дубай, ожидание</h3>
+        <p>Тёплые стены, рваные джинсы, длинные волосы на ветру. <span class="hl">Ты оборачиваешься через плечо, и я забываю, куда шёл.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="21">
+      <figure class="ph"><img src="img/s/21.jpg" alt="Колесо на закате" width="446" height="604" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">21</span>
+        <h3 class="serif">Колесо на закате</h3>
+        <p>Вода по плечи, лавандовое небо и огромное колесо вдали. <span class="hl">Ты закрываешь глаза и растворяешься в розовом свете.</span></p>
+      </div>
+    </article>
+  </div>
+  <div class="chap c3">
+    <header class="ch">
+      <span class="rom" aria-hidden="true">III</span>
+      <h2 class="serif">Город и тихие вечера</h2>
+      <p class="tag">А потом ты просто идёшь по городу, и город замолкает.</p>
+    </header>
+    <article class="scene" data-n="22">
+      <figure class="ph"><img src="img/s/22.jpg" alt="Тёмный взгляд" width="364" height="492" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">22</span>
+        <h3 class="serif">Тёмный взгляд</h3>
+        <p>Фиолетовые очки, чёрная роза на груди. <span class="hl">Лёгкая улыбка и взгляд, после которого трудно думать.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="23">
+      <figure class="ph"><img src="img/s/23.jpg" alt="Терракотовый вечер" width="364" height="492" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">23</span>
+        <h3 class="serif">Терракотовый вечер</h3>
+        <p>Тёплый ресторан, чёрное платье, колготки и рука у лица. <span class="hl">Ты сидишь так, будто весь зал давно проиграл.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="24">
+      <figure class="ph"><img src="img/s/24.jpg" alt="Чёрный блейзер" width="364" height="492" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">24</span>
+        <h3 class="serif">Чёрный блейзер</h3>
+        <p>Высотки позади, сумка через плечо, взгляд спокойный и сильный. <span class="hl">Ты мягко держишь весь город в ладони.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="25">
+      <figure class="ph"><img src="img/s/25.jpg" alt="Утро на улице" width="364" height="492" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">25</span>
+        <h3 class="serif">Утро на улице</h3>
+        <p>Белые шорты, тёмные очки, шаг вперёд. <span class="hl">Кофе остывает, потому что все смотрят на тебя.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="26">
+      <figure class="ph"><img src="img/s/26.jpg" alt="Зеркальный эскалатор" width="361" height="489" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">26</span>
+        <h3 class="serif">Зеркальный эскалатор</h3>
+        <p>Розовый неон мерцает в стекле, ты запрокинула голову и смотришь в потолок. <span class="hl">Торговый центр на минуту превращается в сцену.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="27">
+      <figure class="ph"><img src="img/s/27.jpg" alt="В машине" width="362" height="489" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">27</span>
+        <h3 class="serif">В машине</h3>
+        <p>Чёрные очки, ремень на плече и тихий взгляд. <span class="hl">Мы едем без цели, и мне этого достаточно.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="28">
+      <figure class="ph"><img src="img/s/28.jpg" alt="Кованые ворота" width="362" height="489" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">28</span>
+        <h3 class="serif">Кованые ворота</h3>
+        <p>Старая резьба, тёплый свет за решёткой, чёрная юбка. <span class="hl">Ты стоишь у двери в другой мир и, кажется, знаешь пароль.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="29">
+      <figure class="ph"><img src="img/s/29.jpg" alt="Пустой паркинг" width="361" height="489" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">29</span>
+        <h3 class="serif">Пустой паркинг</h3>
+        <p>Стеклянные двери, оранжевые конусы, красные кроссовки. <span class="hl">Полночь, холодно, а мне тепло оттого, что ты рядом.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="30">
+      <figure class="ph"><img src="img/s/30.jpg" alt="Лестница" width="361" height="489" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">30</span>
+        <h3 class="serif">Лестница</h3>
+        <p>Чёрные сапоги, цепочка сумки и мягкий свет сверху. <span class="hl">Ты спускаешься, а я готов подниматься за тобой хоть всю ночь.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="31">
+      <figure class="ph"><img src="img/s/31.jpg" alt="Балкон над городом" width="362" height="489" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">31</span>
+        <h3 class="serif">Балкон над городом</h3>
+        <p>Зелёные холмы, чай и кальян, босые ноги. <span class="hl">Тихий день, в котором мне хочется быть только рядом с тобой.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="32">
+      <figure class="ph"><img src="img/s/32.jpg" alt="Панама" width="362" height="489" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">32</span>
+        <h3 class="serif">Панама</h3>
+        <p>Мягкий вечер, чёрный пиджак и взгляд в сторону. <span class="hl">Ты не смотришь на меня, и именно поэтому я не могу отвести глаз.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="33">
+      <figure class="ph"><img src="img/s/33.jpg" alt="Пешеходный переход" width="361" height="489" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">33</span>
+        <h3 class="serif">Пешеходный переход</h3>
+        <p>Белая рубашка, юбка с разрезом, закат над широкой улицей. <span class="hl">Красный сигнал светофора и ты, а остальное размыто.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="34">
+      <figure class="ph"><img src="img/s/34.jpg" alt="Красный неон" width="359" height="486" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">34</span>
+        <h3 class="serif">Красный неон</h3>
+        <p>Джинсовая куртка, белый ромпер, красная линия света над головой. <span class="hl">Ночь, тёплый ветер и лёгкость, от которой кружится голова.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="35">
+      <figure class="ph"><img src="img/s/35.jpg" alt="Алая куртка" width="360" height="486" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">35</span>
+        <h3 class="serif">Алая куртка</h3>
+        <p>Красная куртка, красный свет, твоя рука в волосах. <span class="hl">Огонь, в который не страшно смотреть.</span></p>
+      </div>
+    </article>
+    <article class="scene" data-n="36">
+      <figure class="ph"><img src="img/s/36.jpg" alt="Белое на снегу" width="360" height="486" loading="lazy" decoding="async"></figure>
+      <div class="tx">
+        <span class="no" aria-hidden="true">36</span>
+        <h3 class="serif">Белое на снегу</h3>
+        <p>Зимний лес в огоньках, шуба с чёрной каймой и сумка у бедра. <span class="hl">Ты как первый снег: красиво и немного далеко, а хочется ближе.</span></p>
+      </div>
+    </article>
+  </div>
+  <section class="fin" id="fin">
+    <p class="eyebrow">Все 36 кадров</p>
+    <p class="fin-l">Если оставить только одно слово на все кадры сразу, то это</p>
+    <div class="fin-w serif" aria-label="ты">ты</div>
   </section>
 
   <section class="chapter" id="invite">
@@ -498,6 +845,22 @@ html.lock, html.lock body { overflow: hidden; }
     soundBtn.textContent = on ? "Звук: вкл" : "Звук: выкл";
     soundBtn.setAttribute("aria-pressed", on ? "true" : "false");
   });
+
+
+  /* ---------- story: reveal each frame, keep the counter ---------- */
+  (function () {
+    var scenes = [].slice.call(document.querySelectorAll(".scene")), heads = [].slice.call(document.querySelectorAll(".ch, .fin"));
+    var counter = document.getElementById("counter"), cur = counter.querySelector("span"), total = scenes.length;
+    if (!("IntersectionObserver" in window)) { scenes.concat(heads).forEach(function (e) { e.classList.add("in"); }); return; }
+    var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }); }, { threshold: 0.18 });
+    scenes.concat(heads).forEach(function (e) { io.observe(e); });
+    var mid = new IntersectionObserver(function (en) {
+      en.forEach(function (x) { if (x.isIntersecting) { var n = +x.target.dataset.n; cur.textContent = (n < 10 ? "0" : "") + n + " / " + total; counter.style.setProperty("--pr", n / total); } });
+    }, { rootMargin: "-45% 0px -45% 0px" });
+    scenes.forEach(function (e) { mid.observe(e); });
+    var area = new IntersectionObserver(function (en) { en.forEach(function (x) { counter.classList.toggle("on", x.isIntersecting); }); }, { rootMargin: "-20% 0px -20% 0px" });
+    document.querySelectorAll(".chap").forEach(function (e) { area.observe(e); });
+  })();
 
   /* ---------- scroll reveal + parallax ---------- */
   var rv = document.querySelectorAll(".rv");
