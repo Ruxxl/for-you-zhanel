@@ -690,7 +690,7 @@ html.lock, html.lock body { overflow: hidden; }
       var fade = document.getElementById("fade"); fade.classList.add("on");
       setTimeout(function () {
         st.hidden = true; root.classList.remove("lock");
-        var f = document.getElementById("finale"); f.hidden = false; f.scrollIntoView(); window.scrollBy(0, -0);
+        var f = document.getElementById("finale"); f.hidden = false; root.style.scrollBehavior = "auto"; requestAnimationFrame(function () { document.getElementById("fin").scrollIntoView(); root.style.scrollBehavior = ""; });
         setTimeout(function () { fade.classList.remove("on"); }, 250);
       }, 950);
     }
