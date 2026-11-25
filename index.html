@@ -199,10 +199,9 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
   <section class="chapter stage" id="live">
     <p class="eyebrow rv">Для тебя</p>
     <div class="live-frame rv">
-      <video id="liveVideo" src="intro.mp4?v=3" controls playsinline preload="metadata" poster="img/portrait.jpg" controlslist="nodownload noremoteplayback"></video>
+      <video id="liveVideo" src="intro.mp4?v=3" controls playsinline preload="auto" poster="img/portrait.jpg" controlslist="nodownload noremoteplayback"></video>
     </div>
     <p class="live-cap rv" style="--d:.1s">Я бы умер за тебя</p>
-    <button class="btn quiet" id="next" type="button" style="margin-top:22px">Дальше</button>
   </section>
 
 <div id="site" hidden>
@@ -382,7 +381,6 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
     }, REDUCED ? 0 : 950);
   }
   lv.addEventListener("ended", nextPage);
-  document.getElementById("next").addEventListener("click", nextPage);
 
   soundBtn.addEventListener("click", function () {
     var on = bgm.paused || bgm.muted;
