@@ -264,7 +264,7 @@ html.lock, html.lock body { overflow: hidden; }
   <header class="hero" id="top">
     <div class="ring h" style="--d:.05s"><img src="img/portrait.jpg" alt="Жанель" width="900" height="900"></div>
     <p class="eyebrow h" style="--d:.2s">Знакомство</p>
-    <h1 id="typed" data-text="Привет, Жанель.">Привет, Жанель.</h1>
+    <h1 id="typed" data-text="Уважаемая Жанель.">Уважаемая Жанель.</h1>
     <p class="joke" id="jokeLine" aria-live="polite"></p>
     <p class="sub later">Меня зовут Руслан. Я сделал для тебя маленькое кино про тебя.</p>
     <a class="scroll later" href="#eyes">Листай вниз</a>
@@ -464,6 +464,7 @@ html.lock, html.lock body { overflow: hidden; }
       setTimeout(function () { fade.classList.add("on"); }, lead * 1000 + Math.max(0, jd * 1000 - 950));   /* fully dark exactly when the original starts */
       setTimeout(function () {
         shout.hidden = true; unlockSite();
+        var h1 = document.getElementById("typed"); if (REDUCED) h1.textContent = "Привет, Жанель."; else typeInto(h1, "Привет, Жанель.");
         fade.style.transitionDuration = "1.6s";
         fade.classList.remove("on");
       }, lead * 1000 + jd * 1000);
