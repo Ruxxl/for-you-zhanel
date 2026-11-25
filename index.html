@@ -379,18 +379,26 @@ h1 { text-shadow: 0 0 28px rgba(232, 17, 45, 0.55), 2px 0 rgba(110, 168, 255, 0.
   lv.addEventListener("pause", function () { if (!lv.ended && !moved) lp.hidden = false; });
   lv.addEventListener("playing", function () { lp.hidden = true; });
   var fade = document.getElementById("fade"), site = document.getElementById("site"), stage = document.getElementById("live"), moved = false;
-  function nextPage() {
+  var fading = false;
+  function swapPage() {
     if (moved) return; moved = true; lv.pause();
-    fade.classList.add("on");
-    setTimeout(function () {
-      stage.hidden = true; site.hidden = false; soundBtn.hidden = false; window.scrollTo(0, 0);
-      document.body.classList.add("go");
-      var h = document.getElementById("typed"); if (!REDUCED) typeInto(h, h.dataset.text);
-      if (soundBtn.getAttribute("aria-pressed") === "true") { bgm.muted = false; bgm.volume = 0; bgm.play().then(function () { fadeTo(0.7); }, function () {}); }
-      setTimeout(function () { fade.classList.remove("on"); }, 250);
-    }, REDUCED ? 0 : 950);
+    stage.hidden = true; site.hidden = false; soundBtn.hidden = false; window.scrollTo(0, 0);
+    document.body.classList.add("go");
+    var h = document.getElementById("typed"); if (!REDUCED) typeInto(h, h.dataset.text);
+    if (soundBtn.getAttribute("aria-pressed") === "true") { bgm.muted = false; bgm.volume = 0; bgm.play().then(function () { fadeTo(0.7); }, function () {}); }
+    setTimeout(function () { fade.classList.remove("on"); }, 250);
   }
-  lv.addEventListener("ended", nextPage);
+  /* start going dark a second BEFORE the clip ends, so the last frame / pause is never seen */
+  function beginFade() {
+    if (fading) return; fading = true;
+    fade.classList.add("on");
+    var vi = setInterval(function () { lv.volume = Math.max(0, lv.volume - 0.12); if (lv.volume <= 0.01) clearInterval(vi); }, 100);
+    setTimeout(swapPage, REDUCED ? 0 : 950);
+  }
+  setInterval(function () {
+    if (!fading && lv.duration && !lv.paused && lv.duration - lv.currentTime <= 1.05) beginFade();
+  }, 60);
+  lv.addEventListener("ended", beginFade);
 
   soundBtn.addEventListener("click", function () {
     var on = bgm.paused || bgm.muted;
