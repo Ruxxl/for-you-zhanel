@@ -41,7 +41,11 @@ body::before {
 .flash { position: absolute; inset: 0; z-index: 1; display: none; background: #000; pointer-events: none; }
 .flash.on { display: block; }
 .flash img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; filter: brightness(0.72); }
-.hint { position: fixed; z-index: 2; left: 0; right: 0; bottom: max(18px, env(safe-area-inset-bottom)); margin: 0; text-align: center; font-size: 13px; letter-spacing: 0.04em; color: rgba(245, 236, 230, 0.6); pointer-events: none; }
+.gate { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; padding: 24px; background: rgba(5, 5, 9, 0.62); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); transition: opacity 0.35s ease; }
+.gate.hide { opacity: 0; pointer-events: none; }
+.gate-card { width: min(300px, 100%); }
+.gate-card button { appearance: none; border: 0; cursor: pointer; width: 100%; padding: 18px 20px; border-radius: 999px; background: var(--red); color: #fff; font: inherit; font-size: 19px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 10px 30px rgba(232, 17, 45, 0.45); -webkit-tap-highlight-color: transparent; }
+.gate-card button:active { transform: scale(0.98); }
 /* light darkening veil over the video */
 .video::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: rgba(5, 5, 9, 0.22); }
 </style>
@@ -50,18 +54,17 @@ body::before {
 <div class="avatar"><img src="../img/portrait.jpg" alt="Жанель"></div>
 <main class="stage">
   <div class="video">
-    <video id="v" src="video.mp4" autoplay muted loop playsinline preload="auto" disablepictureinpicture controlslist="nodownload noremoteplayback"></video>
+    <video id="v" src="video.mp4" loop playsinline preload="auto" disablepictureinpicture controlslist="nodownload noremoteplayback"></video>
     <div class="flash" id="flash" aria-hidden="true"><img id="fi" alt=""></div>
   </div>
-  <p class="hint" id="hint">нажми, чтобы включить звук</p>
 </main>
+<div class="gate" id="gate" role="dialog" aria-label="Я готова">
+  <div class="gate-card">
+    <button type="button" id="go">Я готова</button>
+  </div>
+</div>
 <script>
-// Browsers only allow autoplay with sound after a tap: try with sound first, fall back to muted, unmute on first touch.
-const v = document.getElementById("v"), hint = document.getElementById("hint");
-function unmute() {
-  v.muted = false; v.volume = 1;
-  v.play().then(() => hint.remove()).catch(() => { v.muted = true; });
-}
+const v = document.getElementById("v");
 // Photo burst: after the subtitle (ends ~7.2s) flip through every photo, spread evenly over the rest of the clip.
 const START = 7.2;
 const PHOTOS = [
@@ -83,9 +86,14 @@ function tick() {
 }
 requestAnimationFrame(tick);
 
-v.muted = false;
-v.play().then(() => hint.remove()).catch(() => { v.muted = true; v.play().catch(() => {}); });
-["pointerdown", "keydown"].forEach(e => addEventListener(e, () => { if (v.muted || v.paused) unmute(); }, { once: false }));
+// A tap is required for sound: the gate button starts the video from the beginning with audio on.
+const gate = document.getElementById("gate");
+document.getElementById("go").addEventListener("click", () => {
+  v.muted = false; v.volume = 1; v.currentTime = 0;
+  v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
+  gate.classList.add("hide");
+  setTimeout(() => gate.remove(), 400);
+});
 </script>
 </body>
 </html>
